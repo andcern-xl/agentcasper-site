@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Enquiries | Agent Casper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --obsidian:#070709; --paper:#fff; --cloud:#f5f5f5; --charcoal:#60606c; --hairline:#d9d9e2; --blue:#2597d0; --display:"Manrope",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--cloud); color: var(--obsidian); font: 400 16px/1.5 var(--display); letter-spacing: -.01em; -webkit-font-smoothing: antialiased; }
+  header { background: var(--paper); border-bottom: 1px solid rgba(0,0,0,.08); }
+  .bar { max-width: 960px; margin: 0 auto; padding: 0 20px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 700; font-size: 17px; letter-spacing: -.03em; }
+  .brand span { color: var(--charcoal); font-weight: 500; margin-left: 8px; }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 28px; letter-spacing: -.04em; margin: 0 0 4px; }
+  .sub { color: var(--charcoal); margin: 0 0 24px; }
+  .btn { font: 500 14px var(--display); background: var(--obsidian); color: #fff; border: 0; border-radius: 100px; padding: 10px 20px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--obsidian); border: 1px solid var(--hairline); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .gate { max-width: 420px; margin: 72px auto 0; background: var(--paper); border-radius: 18px; padding: 32px; box-shadow: rgba(16,55,132,.05) 0 17px 37px; }
+  .gate h1 { font-size: 22px; }
+  .gate input { width: 100%; font: 400 16px var(--display); padding: 12px 14px; border: 1px solid var(--hairline); border-radius: 12px; margin: 12px 0; }
+  .note { min-height: 22px; color: var(--charcoal); font-size: 14px; margin: 8px 0 0; }
+  .note.err { color: #b3261e; }
+  .tools { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  .tools .count { color: var(--charcoal); margin-right: auto; }
+  .list { display: grid; gap: 12px; }
+  .lead { background: var(--paper); border-radius: 14px; padding: 18px 20px; box-shadow: rgba(16,55,132,.04) 0 8px 24px; border: 1px solid rgba(215,230,245,.7); }
+  .lead .top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+  .lead a { font-weight: 600; color: var(--obsidian); text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 3px; word-break: break-all; }
+  .lead time { color: var(--charcoal); font-size: 13px; }
+  .lead p { margin: 8px 0 0; white-space: pre-wrap; word-break: break-word; color: #26262d; }
+  .lead p.none { color: var(--charcoal); font-style: italic; }
+  .empty { background: var(--paper); border-radius: 14px; padding: 36px 20px; text-align: center; color: var(--charcoal); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<header><div class="bar"><div class="brand">Agent Casper<span>Enquiries</span></div><button class="btn ghost" id="out" hidden>Lock</button></div></header>
+<main>
+  <section class="gate" id="gate">
+    <h1>Enquiries</h1>
+    <p class="sub" style="margin:0">Enter the passphrase to read what came in from the website.</p>
+    <form id="gform"><input id="pass" type="password" autocomplete="current-password" placeholder="Passphrase" aria-label="Passphrase" required><button class="btn" id="go" type="submit">Unlock</button></form>
+    <p class="note" id="gnote" role="status"></p>
+  </section>
+  <section id="view" hidden>
+    <h1>Enquiries</h1>
+    <p class="sub">From the contact form on agentcasper.work. Times are Singapore time.</p>
+    <div class="tools"><span class="count" id="count"></span><button class="btn ghost" id="refresh">Refresh</button></div>
+    <div class="list" id="list"></div>
+    <p class="note" id="vnote" role="status"></p>
+  </section>
+</main>
+<script>
+(function () {
+  // Public anon key: it can call admin_enquiries (which checks the passphrase) and submit_enquiry, and cannot read any table.
+  var URL_ = "https://kximauhhpfybrhomkjii.supabase.co/rest/v1/rpc/admin_enquiries";
+  var KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4aW1hdWhocGZ5YnJob21ramlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3OTQxMjgsImV4cCI6MjEwNzM3MDEyOH0.hh6Ul60PRc5wX4IO9nTAX8AYrH1DoiSDQUKDErIMG4k";
+  var $ = function (id) { return document.getElementById(id); };
+  var pass = "";
+  function sgt(iso) {
+    try { return new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Singapore", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(iso)) + " SGT"; }
+    catch (e) { return iso; }
+  }
+  function load(p) {
+    return fetch(URL_, { method: "POST", headers: { "Content-Type": "application/json", "apikey": KEY }, body: JSON.stringify({ p_secret: p }) })
+      .then(function (r) { if (!r.ok) throw new Error("net"); return r.json(); });
+  }
+  function render(leads) {
+    var list = $("list"); list.textContent = "";
+    $("count").textContent = leads.length === 1 ? "1 enquiry" : leads.length + " enquiries";
+    if (!leads.length) { var e = document.createElement("div"); e.className = "empty"; e.textContent = "Nothing yet. New enquiries show up here."; list.appendChild(e); return; }
+    leads.forEach(function (l) {
+      var d = document.createElement("div"); d.className = "lead";
+      var top = document.createElement("div"); top.className = "top";
+      var a = document.createElement("a"); a.textContent = l.email || "(no email)";
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(l.email || "")) a.href = "mailto:" + l.email + "?subject=" + encodeURIComponent("Re: your enquiry to Agent Casper");
+      var t = document.createElement("time"); t.dateTime = l.at; t.textContent = sgt(l.at);
+      top.appendChild(a); top.appendChild(t); d.appendChild(top);
+      var p = document.createElement("p"); if (l.message) p.textContent = l.message; else { p.className = "none"; p.textContent = "No message."; }
+      d.appendChild(p); list.appendChild(d);
+    });
+  }
+  function show(res, fromGate) {
+    if (res && res.ok) {
+      $("gate").hidden = true; $("view").hidden = false; $("out").hidden = false; $("vnote").textContent = ""; render(res.leads || []);
+      try { sessionStorage.setItem("ac_admin", pass); } catch (e) {}
+      return true;
+    }
+    var msg = res && res.error === "locked" ? "Too many wrong tries. Wait 15 minutes and try again." : "That passphrase is not right.";
+    if (fromGate) { $("gnote").textContent = msg; $("gnote").className = "note err"; } else { lock(msg); }
+    return false;
+  }
+  function lock(msg) {
+    pass = ""; try { sessionStorage.removeItem("ac_admin"); } catch (e) {}
+    $("view").hidden = true; $("out").hidden = true; $("gate").hidden = false; $("pass").value = "";
+    $("gnote").textContent = msg || ""; $("gnote").className = "note" + (msg ? " err" : "");
+  }
+  $("gform").addEventListener("submit", function (e) {
+    e.preventDefault(); pass = $("pass").value; $("go").disabled = true; $("gnote").textContent = "Checking..."; $("gnote").className = "note";
+    load(pass).then(function (r) { show(r, true); }).catch(function () { $("gnote").textContent = "Could not reach the server. Try again."; $("gnote").className = "note err"; }).then(function () { $("go").disabled = false; });
+  });
+  $("refresh").addEventListener("click", function () {
+    $("vnote").textContent = "Refreshing...";
+    load(pass).then(function (r) { show(r, false); }).catch(function () { $("vnote").textContent = "Could not refresh. Check your connection."; });
+  });
+  $("out").addEventListener("click", function () { lock(""); });
+  var saved = ""; try { saved = sessionStorage.getItem("ac_admin") || ""; } catch (e) {}
+  if (saved) { pass = saved; load(pass).then(function (r) { show(r, false); }).catch(function () {}); }
+})();
+</script>
+</body>
+</html>

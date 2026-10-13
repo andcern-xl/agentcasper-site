@@ -211,6 +211,24 @@
   .compare.used .hint { opacity: 0; }
   .compare input[type=range] { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
   @media (max-width: 760px) { .story { gap: 40px; } .story figcaption { font-size: 19px; } }
+  .btn { white-space: nowrap; }
+  html, body { overflow-x: hidden; }
+  .burger { display: none; width: 44px; height: 44px; margin-left: 4px; border: 0; background: none; padding: 0; cursor: pointer; align-items: center; justify-content: center; border-radius: 10px; }
+  .burger i, .burger i::before, .burger i::after { display: block; width: 20px; height: 2px; background: var(--obsidian); border-radius: 2px; position: relative; content: ""; transition: transform .2s, background .2s, top .2s; }
+  .burger i::before { position: absolute; top: -6px; left: 0; }
+  .burger i::after { position: absolute; top: 6px; left: 0; }
+  @media (max-width: 1000px) {
+    .nav { grid-template-columns: 1fr auto; }
+    .nav .right .btn { display: none; }
+    .burger { display: inline-flex; }
+    header nav.links { display: none; }
+    header.open nav.links { display: flex; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid rgba(0,0,0,.08); padding: 6px 24px 14px; box-shadow: 0 18px 30px rgba(16,55,132,.08); }
+    header.open nav.links a { padding: 15px 0; font-size: 17px; border: 0; border-bottom: 1px solid rgba(0,0,0,.06); margin: 0; }
+    header.open nav.links a:last-child { border-bottom: 0; }
+    header.open .burger i { background: transparent; }
+    header.open .burger i::before { top: 0; transform: rotate(45deg); }
+    header.open .burger i::after { top: 0; transform: rotate(-45deg); }
+  }
 </style>
 </head>
 <body>
@@ -240,13 +258,13 @@
       <svg class="ghost-logo" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1C6.5 1 2.5 5 2.5 10.5V26l3.2-2.6L9 26l3-2.6L15 26l3.3-2.6L21.5 26V10.5C21.5 5 17.5 1 12 1z" fill="currentColor"/><circle cx="8.8" cy="11" r="1.6" fill="#fff"/><circle cx="15.2" cy="11" r="1.6" fill="#fff"/></svg>
       Agent Casper
     </a>
-    <nav class="links">
+    <nav class="links" id="site-nav">
       <a href="index.html#services">Wisps</a>
       <a href="apps.html">Custom apps</a>
       <a class="about" href="index.html#products">Why Casper</a>
       <a href="#top">About Casper</a>
     </nav>
-    <div class="right"><a class="btn primary sm" href="index.html#contact">Delegate to Agent Casper</a></div>
+    <div class="right"><a class="btn primary sm" href="index.html#contact">Delegate to Agent Casper</a><button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><i></i></button></div>
   </div>
 </header>
 
@@ -334,6 +352,17 @@
   var r = box.querySelector('input');
   function set() { box.style.setProperty('--v', r.value + '%'); box.classList.add('used'); }
   r.addEventListener('input', set);
+})();
+</script>
+<script>
+(function () {
+  var h = document.querySelector('header'), b = h && h.querySelector('.burger'), n = h && h.querySelector('nav.links');
+  if (!b || !n) return;
+  function set(open) { h.classList.toggle('open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  b.addEventListener('click', function () { set(!h.classList.contains('open')); });
+  n.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 1000) set(false); });
 })();
 </script>
 </body>

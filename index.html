@@ -186,6 +186,24 @@
     .card { padding: 30px; }
     .contact-card { padding: 52px 22px; }
   }
+  .btn { white-space: nowrap; }
+  html, body { overflow-x: hidden; }
+  .burger { display: none; width: 44px; height: 44px; margin-left: 4px; border: 0; background: none; padding: 0; cursor: pointer; align-items: center; justify-content: center; border-radius: 10px; }
+  .burger i, .burger i::before, .burger i::after { display: block; width: 20px; height: 2px; background: var(--obsidian); border-radius: 2px; position: relative; content: ""; transition: transform .2s, background .2s, top .2s; }
+  .burger i::before { position: absolute; top: -6px; left: 0; }
+  .burger i::after { position: absolute; top: 6px; left: 0; }
+  @media (max-width: 1000px) {
+    .nav { grid-template-columns: 1fr auto; }
+    .nav .right .btn { display: none; }
+    .burger { display: inline-flex; }
+    header nav.links { display: none; }
+    header.open nav.links { display: flex; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid rgba(0,0,0,.08); padding: 6px 24px 14px; box-shadow: 0 18px 30px rgba(16,55,132,.08); }
+    header.open nav.links a { padding: 15px 0; font-size: 17px; border: 0; border-bottom: 1px solid rgba(0,0,0,.06); margin: 0; }
+    header.open nav.links a:last-child { border-bottom: 0; }
+    header.open .burger i { background: transparent; }
+    header.open .burger i::before { top: 0; transform: rotate(45deg); }
+    header.open .burger i::after { top: 0; transform: rotate(-45deg); }
+  }
 </style>
 </head>
 <body>
@@ -215,13 +233,13 @@
       <svg class="ghost-logo" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1C6.5 1 2.5 5 2.5 10.5V26l3.2-2.6L9 26l3-2.6L15 26l3.3-2.6L21.5 26V10.5C21.5 5 17.5 1 12 1z" fill="currentColor"/><circle cx="8.8" cy="11" r="1.6" fill="#fff"/><circle cx="15.2" cy="11" r="1.6" fill="#fff"/></svg>
       Agent Casper
     </a>
-    <nav class="links">
+    <nav class="links" id="site-nav">
       <a href="#services">Wisps</a>
       <a href="apps.html">Custom apps</a>
       <a class="about" href="#products">Why Casper</a>
       <a href="about.html">About Casper</a>
     </nav>
-    <div class="right"><a class="btn primary sm" href="#contact">Delegate to Agent Casper</a></div>
+    <div class="right"><a class="btn primary sm" href="#contact">Delegate to Agent Casper</a><button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><i></i></button></div>
   </div>
 </header>
 
@@ -431,9 +449,10 @@
   })();
 </script>
 <script>
-  // Paste the Formspree form URL (https://formspree.io/f/xxxx) into FORM_ENDPOINT. Formspree emails each submission to the address on the Formspree account.
-  // Until then, sending opens the visitor's email app with the message filled in.
-  var FORM_ENDPOINT = "";
+  // Enquiries go to the Supabase function submit_enquiry (agent-engine project, migration 0013). It stores one lead on the agentcasper tenant.
+  // The key below is the public anon key: it can only call that function and cannot read any table. If ENQUIRY_URL is emptied, sending opens the visitor's email app instead.
+  var FORM_ENDPOINT = "https://kximauhhpfybrhomkjii.supabase.co/rest/v1/rpc/submit_enquiry";
+  var ENQUIRY_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4aW1hdWhocGZ5YnJob21ramlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3OTQxMjgsImV4cCI6MjEwNzM3MDEyOH0.hh6Ul60PRc5wX4IO9nTAX8AYrH1DoiSDQUKDErIMG4k";
   var MAILTO = "delegate@agentcasper.work";
   (function () {
     var form = document.getElementById("contact-form");
@@ -457,13 +476,25 @@
       }
       var btn = form.querySelector("button");
       btn.disabled = true; note.textContent = "Sending...";
-      fetch(FORM_ENDPOINT, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify({ email: email, message: message, _subject: "Agent Casper enquiry" }) })
-        .then(function (r) { if (!r.ok) throw new Error(); form.reset(); note.textContent = "Thanks. We will reply by email."; })
+      fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "apikey": ENQUIRY_KEY }, body: JSON.stringify({ p_email: email, p_message: message, p_company: form.company.value }) })
+        .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+        .then(function (d) { if (!d || d.ok !== true) throw new Error(); form.reset(); note.textContent = "Thanks. We will reply by email."; })
         .catch(function () { note.textContent = "That did not send. Please email " + MAILTO + " instead."; })
         .then(function () { btn.disabled = false; });
     });
   })();
 </script>
 
+<script>
+(function () {
+  var h = document.querySelector('header'), b = h && h.querySelector('.burger'), n = h && h.querySelector('nav.links');
+  if (!b || !n) return;
+  function set(open) { h.classList.toggle('open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  b.addEventListener('click', function () { set(!h.classList.contains('open')); });
+  n.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 1000) set(false); });
+})();
+</script>
 </body>
 </html>
