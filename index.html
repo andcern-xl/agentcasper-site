@@ -69,8 +69,9 @@
   h3 { font-weight: 600; font-size: 24px; line-height: 1.2; letter-spacing: -.035em; margin: 18px 0 10px; }
 
   #agentgrid.two, .pains { grid-template-columns: repeat(2, 1fr); }
+  .pains.three { grid-template-columns: repeat(3, 1fr); }
   #agentgrid.one, .pains.one { grid-template-columns: minmax(0, 720px); justify-content: center; }
-  @media (max-width: 760px) { #agentgrid.two, .pains { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { #agentgrid.two, .pains, .pains.three { grid-template-columns: 1fr; } }
   .card[hidden] { display: none; }
   .card.callout { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; align-content: start; background: #f3f9fd; border-color: rgba(37,151,208,.35); }
   .card.callout[hidden] { display: none; }
@@ -259,15 +260,19 @@
         </div>
       </div>
       <div class="scn" role="tabpanel" id="panel-property" aria-labelledby="tab-property" hidden>
-        <div class="cmp pains one">
+        <div class="cmp pains">
           <div class="card today">
             <h3>Every viewing is a chat thread.</h3>
             <ol class="seq"><li>Every viewing is arranged by back-and-forth with the seller and the buyer.</li><li>Reminders are typed by hand. With many chats open, one has gone out with the wrong place.</li><li>After an offer, the same details are retyped into each form, and signatures are chased by message.</li></ol>
           </div>
+          <div class="card today">
+            <h3>Recruiting and talks run on cold outreach.</h3>
+            <ol class="seq"><li>Recruiting new agents means cold outreach, one person at a time.</li><li>Filling a talk means chasing people one by one.</li><li>Nobody tracks who replied or turned up, so you cannot see what is working.</li></ol>
+          </div>
         </div>
       </div>
       <div class="scn" role="tabpanel" id="panel-marketing" aria-labelledby="tab-marketing" hidden>
-        <div class="cmp pains">
+        <div class="cmp pains three">
           <div class="card today">
             <h3>Brand deals get buried.</h3>
             <ol class="seq"><li>Brand deals sit in the requests folders on Instagram and TikTok, and get missed.</li><li>Paid-partnership emails are mixed in with everything else.</li><li>A brand deal should rank first, but the inbox ranks by what came in last.</li></ol>
@@ -275,6 +280,10 @@
           <div class="card today">
             <h3>Finding creators is manual.</h3>
             <ol class="seq"><li>Finding the right creators means searching, vetting profile by profile and copying into a spreadsheet.</li><li>Filters match follower counts, not your taste.</li><li>Every message is written from scratch, and outreach is tracked by hand.</li></ol>
+          </div>
+          <div class="card today">
+            <h3>Showing up on Reddit is slow.</h3>
+            <ol class="seq"><li>Finding the subreddits where your buyers ask takes hours of scrolling.</li><li>Most threads are not worth a reply, and it is hard to tell which.</li><li>Replies are written from scratch, and nobody tracks which ones worked.</li></ol>
           </div>
         </div>
       </div>
@@ -289,15 +298,15 @@
         <div class="flow"><span>read</span><span>prioritise</span><span>draft reply</span><span class="human">you approve</span><span>send</span><i class="loop-tag">learns from results</i></div>
         </details>
       </div>
-      <div class="card" data-hide="property">
+      <div class="card">
         <span class="pill"><svg class="i"><use href="#i-send"/></svg>Outreach Wisp</span>
-        <h3 class="var" data-fa="Finds people to recruit or meet." data-marketing="Finds the right KOLs.">Finds the right people.</h3>
-        <ul class="feat"><li class="var" data-fa="Finds people to recruit or meet" data-marketing="Searches for KOLs and creators who fit your brand">Finds people who fit</li><li class="var">Scores each one against your criteria</li><li class="var">Drafts the first message and the follow ups</li></ul>
+        <h3 class="var" data-fa="Finds people to recruit or meet." data-property="Finds agents to recruit and people for your talks." data-marketing="Finds the right KOLs.">Finds the right people.</h3>
+        <ul class="feat"><li class="var" data-fa="Finds people to recruit or meet" data-property="Finds agents to recruit and people to invite to your talks" data-marketing="Searches for KOLs and creators who fit your brand">Finds people who fit</li><li class="var">Scores each one against your criteria</li><li class="var">Drafts the first message and the follow ups</li></ul>
         <details class="how"><summary>See the steps</summary>
         <div class="flow"><span>find</span><span>score based on your criteria</span><span>draft</span><span class="human">you approve</span><span>send and follow up</span><span class="result">results: replies and meetings</span><i class="loop-tag">learns from results</i></div>
         </details>
       </div>
-      <div class="card" data-only="all" hidden>
+      <div class="card" data-only="all marketing" hidden>
         <span class="pill"><svg class="i"><use href="#i-chat"/></svg>Reddit Wisp</span>
         <h3>Joins the conversations that matter.</h3>
         <p class="note">Posts on its own for now.</p>
@@ -401,7 +410,7 @@
       panels.forEach(function (p) { p.hidden = p.id !== "panel-" + id; });
       if (week) week.hidden = id === "all";
       var ag = document.getElementById("agentgrid");
-      if (ag) { ag.classList.toggle("two", id !== "all"); ag.classList.toggle("one", id === "property"); [].forEach.call(ag.querySelectorAll("[data-only]"), function (c) { c.hidden = c.getAttribute("data-only") !== id; }); [].forEach.call(ag.querySelectorAll("[data-hide]"), function (c) { c.hidden = c.getAttribute("data-hide") === id; }); }
+      if (ag) { ag.classList.toggle("two", id !== "all" && id !== "marketing"); [].forEach.call(ag.querySelectorAll("[data-only]"), function (c) { c.hidden = c.getAttribute("data-only").split(" ").indexOf(id) < 0; }); [].forEach.call(ag.querySelectorAll("[data-hide]"), function (c) { c.hidden = c.getAttribute("data-hide") === id; }); }
       if (push) { try { history.replaceState(null, "", id === "all" ? "#services" : "#agents-" + id); } catch (e) {} }
     }
     tabs.forEach(function (t, i) {
