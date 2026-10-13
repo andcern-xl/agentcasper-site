@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Casper</title>
+<meta name="description" content="Practical AI, built around your business. Casper and his wisps do the repetitive work, with a person approving every message to your clients.">
+<meta property="og:title" content="Agent Casper">
+<meta property="og:description" content="Practical AI, built around your business. Casper and his wisps do the repetitive work, with a person approving every message to your clients.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --obsidian: #070709;
+    --paper: #ffffff;
+    --cloud: #f5f5f5;
+    --sky-tint: #d7e6f5;
+    --charcoal: #60606c;
+    --slate: #8b8b8b;
+    --hairline: #bebecc;
+    --blue: #2597d0;
+    --sky: linear-gradient(180deg, #779bc1 0%, #9abfda 58%, #cbdcec 100%);
+    --shadow-card: rgba(16,55,132,.03) 0 17px 37px, rgba(16,55,132,.03) 0 67px 67px, rgba(16,55,132,.02) 0 150px 90px;
+    --shadow-btn: rgba(36,36,40,.1) 0 1px 2px, rgba(36,36,40,.09) 0 3px 3px, rgba(36,36,40,.05) 0 6px 4px, rgba(36,36,40,.01) 0 11px 4px;
+    --display: "Manrope", "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --ui: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --maxw: 1200px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--obsidian); font: 400 17px/1.49 var(--display); letter-spacing: -.01em; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+  svg.i { width: 16px; height: 16px; stroke: var(--blue); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+  /* nav */
+  header { position: sticky; top: 0; z-index: 10; background: var(--paper); border-bottom: 1px solid rgba(0,0,0,.08); }
+  .nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 18px; letter-spacing: -.03em; text-decoration: none; }
+  .ghost-logo { width: 22px; height: 26px; color: var(--obsidian); }
+  nav.links { display: flex; gap: 28px; }
+  nav.links a { font: 500 14px var(--ui); letter-spacing: -.022em; text-decoration: none; }
+  nav.links a:hover { color: var(--charcoal); }
+  .nav .right { justify-self: end; }
+
+  /* buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; font: 500 15px var(--display); letter-spacing: -.01em; text-decoration: none; padding: 13px 24px; border-radius: 100px; border: 1px solid transparent; cursor: pointer; }
+  .btn.primary { background: var(--obsidian); color: #fff; box-shadow: var(--shadow-btn); }
+  .btn.outline { border-color: var(--obsidian); color: var(--obsidian); background: transparent; }
+  .btn.onsky { border-color: rgba(7,7,9,.75); color: var(--obsidian); background: rgba(255,255,255,.35); }
+  .btn:hover { opacity: .88; }
+  .btn.sm { padding: 9px 18px; font-size: 14px; }
+
+  /* hero: the only place the sky gradient appears */
+  .hero { background: var(--sky); text-align: center; padding: 112px 0 132px; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #000; border-radius: 100px; padding: 5px 13px; font: 500 12.5px var(--display); letter-spacing: -.01em; color: var(--obsidian); }
+  .hero .pill { margin-bottom: 30px; }
+  h1 { color: #fff; font-weight: 600; font-size: clamp(44px, 8vw, 80px); line-height: .94; letter-spacing: -.04em; margin: 0 auto 28px; max-width: 13ch; text-shadow: 0 2px 30px rgba(40,70,110,.22); }
+  .hero p { color: #10233f; font-size: 19px; line-height: 1.55; max-width: 540px; margin: 0 auto 34px; }
+  .hero p b { font-weight: 700; color: #07101f; background: linear-gradient(transparent 58%, rgba(255,255,255,.75) 58%); padding: 0 2px; }
+  .hero .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* sections */
+  section.block { padding: 112px 0; }
+  section.gray { background: var(--cloud); }
+  h2 { font-weight: 600; font-size: clamp(30px, 4.6vw, 44px); line-height: 1.1; letter-spacing: -.04em; text-align: center; margin: 0 auto 14px; max-width: 20ch; }
+  .sub { color: var(--charcoal); text-align: center; max-width: 560px; margin: 0 auto 56px; font-size: 17px; }
+  h3 { font-weight: 600; font-size: 24px; line-height: 1.2; letter-spacing: -.035em; margin: 18px 0 10px; }
+
+  #agentgrid.two, .pains { grid-template-columns: repeat(2, 1fr); }
+  #agentgrid.one, .pains.one { grid-template-columns: minmax(0, 720px); justify-content: center; }
+  @media (max-width: 760px) { #agentgrid.two, .pains { grid-template-columns: 1fr; } }
+  .card[hidden] { display: none; }
+  .card.callout { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; align-content: start; background: #f3f9fd; border-color: rgba(37,151,208,.35); }
+  .card.callout[hidden] { display: none; }
+  .card.callout > .pill { grid-column: 1; justify-self: start; }
+  .card.callout > h3 { grid-column: 1; }
+  .card.callout > p.note { grid-column: 1; margin-top: 10px; font: 600 14px var(--display); color: var(--obsidian); }
+  .card.callout > .feat { grid-column: 2; grid-row: 1 / span 4; margin: 0; padding: 0; border-top: 0; align-content: center; }
+  .egg { font-size: 14px; opacity: .75; }
+  @media (max-width: 520px) { header .btn.sm { padding: 10px 14px; font-size: 13px; } .logo { font-size: 15px; } }
+  .card.callout > .btn { grid-column: 1; justify-self: start; margin-top: 18px; }
+  .card.callout > details.how { grid-column: 1 / -1; margin-top: 0; }
+  @media (max-width: 760px) { .card.callout { grid-template-columns: 1fr; } .card.callout > .feat { grid-column: 1; grid-row: auto; margin-top: 22px; } }
+
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .card { background: #fff; border-radius: 18px; padding: 40px; box-shadow: var(--shadow-card); border: 1px solid rgba(215,230,245,.7); }
+  .card p { color: var(--charcoal); margin: 0; }
+
+  /* flow: each step is a box, joined by arrows */
+  .feat { list-style: none; margin: 22px 0 0; padding: 22px 0 0; border-top: 1px solid rgba(0,0,0,.08); display: grid; gap: 12px; }
+  .feat li { position: relative; padding-left: 28px; font: 500 16px/1.4 var(--ui); letter-spacing: -.01em; color: var(--obsidian); }
+  .feat li::before { content: ""; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232597d0' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E") center/contain no-repeat; }
+  details.how { margin-top: auto; padding-top: 22px; }
+  details.how summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px; font: 600 14px var(--display); letter-spacing: -.01em; color: var(--obsidian); padding: 8px 16px; border: 1px solid var(--hairline); border-radius: 100px; }
+  details.how summary::-webkit-details-marker { display: none; }
+  details.how summary::after { content: "\2193"; color: var(--charcoal); transition: transform .2s; }
+  details.how[open] summary::after { transform: rotate(180deg); }
+  details.how .flow { margin-top: 18px; }
+  .flow { position: relative; display: flex; flex-direction: column; margin-top: 30px; padding: 26px 42px 0 0; border-top: 1px solid rgba(0,0,0,.08); }
+  .flow span { position: relative; display: block; font: 500 15px/1.3 var(--display); letter-spacing: -.01em; color: var(--obsidian); background: #fff; border: 1px solid var(--hairline); border-radius: 12px; padding: 12px 18px; margin-bottom: 26px; }
+  .flow span:last-of-type { margin-bottom: 0; }
+  .flow span:not(:last-of-type)::after { content: "\2193"; position: absolute; left: 50%; bottom: -25px; transform: translateX(-50%); width: 24px; height: 24px; line-height: 24px; text-align: center; font: 500 18px/24px var(--ui); color: var(--charcoal); }
+  .flow span.human { background: var(--obsidian); border-color: var(--obsidian); color: #fff; font-weight: 600; box-shadow: var(--shadow-btn); }
+
+  /* the loop: last step returns to the first */
+  .flow::after { content: ""; position: absolute; right: 8px; top: 48px; bottom: 22px; width: 34px; border: 1.5px solid var(--blue); border-left: 0; border-radius: 0 18px 18px 0; }
+  .flow::before { content: ""; position: absolute; right: 33px; top: 43px; width: 0; height: 0; border-right: 9px solid var(--blue); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .flow span.result { background: #f3f9fd; border-color: var(--blue); }
+  .flow i.loop-tag { position: absolute; right: 8px; top: 50%; transform: translate(50%, -42%); writing-mode: vertical-rl; background: #fff; border: 1px solid var(--blue); border-radius: 100px; padding: 12px 5px; font: 600 12px/1 var(--display); font-style: normal; letter-spacing: -.005em; color: var(--obsidian); white-space: nowrap; z-index: 1; }
+  .loopnote { display: flex; align-items: center; gap: 8px; margin: 22px 0 0 !important; font: 500 14px var(--ui); letter-spacing: -.01em; color: var(--obsidian) !important; }
+  .loopnote svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+  .num { font: 600 12.5px var(--display); color: var(--charcoal); border: 1px solid var(--hairline); border-radius: 100px; padding: 4px 11px; display: inline-block; }
+  .steps .card { padding: 32px; }
+  .steps h3 { font-size: 20px; margin-top: 16px; }
+  .steps .grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 48px; }
+  .tile { display: flex; gap: 16px; align-items: flex-start; background: #fff; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-card); border: 1px solid rgba(215,230,245,.7); text-decoration: none; color: inherit; }
+  .tile > svg { width: 40px; height: 40px; flex: none; padding: 9px; border-radius: 12px; background: #f3f9fd; stroke: var(--blue); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .tile h3 { margin: 0 0 4px; font-size: 17px; display: flex; align-items: center; gap: 8px; }
+  .tile h3 em { font: 600 11px var(--display); font-style: normal; color: var(--charcoal); border: 1px solid var(--hairline); border-radius: 100px; padding: 3px 8px; }
+  .tile p { font-size: 15px; line-height: 1.4; }
+  .tile.ask { background: transparent; border: 1.5px dashed var(--hairline); box-shadow: none; }
+  .tile.ask:hover { border-color: var(--blue); }
+  .connect { margin-top: 112px; }
+  .connect .grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .connect .card { padding: 32px; }
+  .connect h3 { font-size: 20px; }
+
+  .tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 0 auto 40px; }
+  .tab { font: 500 15px var(--display); letter-spacing: -.01em; background: #fff; color: var(--obsidian); border: 1px solid var(--hairline); border-radius: 100px; padding: 10px 20px; cursor: pointer; }
+  .tab:hover { border-color: var(--obsidian); }
+  .tab[aria-selected="true"] { background: var(--obsidian); border-color: var(--obsidian); color: #fff; box-shadow: var(--shadow-btn); }
+  .tab:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .cmp { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .week { margin: 8px 0 48px; }
+  .week-label { text-align: center; font: 600 13px var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--charcoal); margin: 0 0 20px; }
+  .js .week[hidden] { display: none; }
+  .js .scn[hidden] { display: none; }
+  .cmp .card { padding: 36px; }
+  .cmp .card.today { background: var(--cloud); box-shadow: none; border-color: rgba(0,0,0,.06); }
+  .cmp h3 { font-size: 22px; }
+  .pill.plain { background: transparent; border-color: var(--hairline); color: var(--charcoal); }
+  .pill.dark { background: var(--obsidian); border-color: var(--obsidian); color: #fff; }
+  ol.seq { list-style: none; counter-reset: q; margin: 22px 0 0; padding: 0; display: grid; gap: 0; }
+  ol.seq li { counter-increment: q; position: relative; padding: 0 0 20px 40px; color: var(--charcoal); line-height: 1.45; }
+  ol.seq li:last-child { padding-bottom: 0; }
+  ol.seq li::before { content: counter(q); position: absolute; left: 0; top: -1px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--hairline); display: grid; place-items: center; font: 600 12px var(--display); color: var(--charcoal); background: #fff; }
+  .with ol.seq li { color: var(--obsidian); }
+  ol.seq li.gate { font-weight: 600; }
+  ol.seq li.gate::before { background: var(--obsidian); border-color: var(--obsidian); color: #fff; }
+  .cost { margin: 28px 0 0; padding-top: 18px; border-top: 1px solid rgba(0,0,0,.08); font-weight: 600; letter-spacing: -.01em; color: var(--obsidian); }
+  .today .cost { color: var(--charcoal); }
+  .card p.also { margin-top: 14px; font-weight: 400; font-size: 15px; color: var(--charcoal); }
+
+  .contact-card { background: #fff; border-radius: 32px; padding: 72px 32px; text-align: center; box-shadow: var(--shadow-card); border: 1px solid rgba(215,230,245,.7); }
+  .contact-card .sub { margin-bottom: 32px; }
+
+  .form { max-width: 440px; margin: 0 auto; text-align: left; display: grid; gap: 8px; }
+  .form label { font: 500 14px var(--display); letter-spacing: -.01em; margin-top: 8px; }
+  .form .opt { color: var(--slate); font-weight: 400; margin-left: 4px; }
+  .form input[type=email], .form textarea { width: 100%; font: 400 16px var(--display); letter-spacing: -.01em; color: var(--obsidian); background: #fff; border: 1px solid var(--hairline); border-radius: 12px; padding: 13px 16px; }
+  .form textarea { resize: vertical; min-height: 92px; }
+  .form input:focus, .form textarea:focus { outline: 2px solid var(--blue); outline-offset: 1px; border-color: transparent; }
+  .form ::placeholder { color: var(--slate); }
+  .form .btn { justify-content: center; margin-top: 14px; width: 100%; }
+  .form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .form-note { min-height: 20px; margin: 4px 0 0; font: 400 14px var(--ui); color: var(--charcoal); text-align: center; }
+  .alt { margin: 22px 0 0; font: 400 14px var(--ui); color: var(--charcoal); }
+  .alt a { text-decoration: underline; text-underline-offset: 3px; }
+
+  footer { padding: 36px 0 56px; color: var(--charcoal); font: 400 14px var(--ui); }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-top: 1px solid rgba(0,0,0,.08); padding-top: 28px; }
+
+  @media (max-width: 760px) {
+    .nav { grid-template-columns: 1fr auto; }
+    nav.links { display: none; }
+    .hero { padding: 72px 0 88px; }
+    section.block { padding: 72px 0; }
+    .connect { margin-top: 72px; }
+    .card { padding: 30px; }
+    .contact-card { padding: 52px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="m21 4-3 16-6-5-3 3v-5L21 4z"/><path d="m9 13 12-9"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 0 1 4-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 0 1-4 4H4"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16 9.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <svg class="ghost-logo" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1C6.5 1 2.5 5 2.5 10.5V26l3.2-2.6L9 26l3-2.6L15 26l3.3-2.6L21.5 26V10.5C21.5 5 17.5 1 12 1z" fill="currentColor"/><circle cx="8.8" cy="11" r="1.6" fill="#fff"/><circle cx="15.2" cy="11" r="1.6" fill="#fff"/></svg>
+      Agent Casper
+    </a>
+    <nav class="links">
+      <a href="#services">Wisps</a>
+      <a href="#products">Why Casper</a>
+    </nav>
+    <div class="right"><a class="btn primary sm" href="#contact">Delegate to Agent Casper</a></div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <span class="pill">Practical AI, built around your business.</span>
+    <h1>Meet Agent Casper. He solves your problems.</h1>
+    <p class="lede">Casper is a friendly ghost who <b>adapts to your business</b>.<br><b>1 agent, many wisps</b> (subagents)<br><em class="egg">like the soot sprites in Spirited Away</em><br>He learns your pain points and <b>solves them for you</b>.</p>
+    <div class="actions">
+      <a class="btn primary" href="#services">Deploy a Wisp</a>
+    </div>
+  </div>
+</section>
+
+<section class="block gray" id="services">
+  <div class="wrap">
+    <h2>Pick a wisp. Casper takes the shape.</h2>
+    <p class="sub">Each one is set up around your business.</p>
+    <div class="tabs" role="tablist" aria-label="Choose your job">
+      <button class="tab" role="tab" id="tab-all" data-tab="all">All</button>
+      <button class="tab" role="tab" id="tab-fa" aria-controls="panel-fa" data-tab="fa">Financial advisers</button>
+      <button class="tab" role="tab" id="tab-property" aria-controls="panel-property" data-tab="property">Property agents</button>
+      <button class="tab" role="tab" id="tab-marketing" aria-controls="panel-marketing" data-tab="marketing">Marketers</button>
+    </div>
+    <div class="week" id="week" hidden>
+      <p class="week-label">Sound familiar?</p>
+      <div class="scn" role="tabpanel" id="panel-fa" aria-labelledby="tab-fa" hidden>
+        <div class="cmp pains">
+          <div class="card today">
+            <h3>Clients are spread across chats.</h3>
+            <ol class="seq"><li>Client messages are split across WhatsApp, Telegram and email, and a claim question looks the same as a payment chaser.</li><li>You answer from memory, in another app, with no record.</li><li>Annual reviews slip by.</li></ol>
+          </div>
+          <div class="card today">
+            <h3>Recruiting by hand does not scale.</h3>
+            <ol class="seq"><li>Referrals have run out, so recruiting now means cold outreach.</li><li>Researching each person takes too long to do for dozens a week.</li><li>Nobody tracks who replied or booked, so you cannot see what is working.</li></ol>
+          </div>
+        </div>
+      </div>
+      <div class="scn" role="tabpanel" id="panel-property" aria-labelledby="tab-property" hidden>
+        <div class="cmp pains one">
+          <div class="card today">
+            <h3>Every viewing is a chat thread.</h3>
+            <ol class="seq"><li>Every viewing is arranged by back-and-forth with the seller and the buyer.</li><li>Reminders are typed by hand. With many chats open, one has gone out with the wrong place.</li><li>After an offer, the same details are retyped into each form, and signatures are chased by message.</li></ol>
+          </div>
+        </div>
+      </div>
+      <div class="scn" role="tabpanel" id="panel-marketing" aria-labelledby="tab-marketing" hidden>
+        <div class="cmp pains">
+          <div class="card today">
+            <h3>Brand deals get buried.</h3>
+            <ol class="seq"><li>Brand deals sit in the requests folders on Instagram and TikTok, and get missed.</li><li>Paid-partnership emails are mixed in with everything else.</li><li>A brand deal should rank first, but the inbox ranks by what came in last.</li></ol>
+          </div>
+          <div class="card today">
+            <h3>Finding creators is manual.</h3>
+            <ol class="seq"><li>Finding the right creators means searching, vetting profile by profile and copying into a spreadsheet.</li><li>Filters match follower counts, not your taste.</li><li>Every message is written from scratch, and outreach is tracked by hand.</li></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" id="agentgrid">
+      <div class="card">
+        <span class="pill"><svg class="i"><use href="#i-mail"/></svg>Inbox Wisp</span>
+        <h3 class="var" data-fa="Keeps up with your clients." data-property="Keeps up with buyers and sellers." data-marketing="Manages your social inbox.">Never lets a message slip.</h3>
+        <ul class="feat"><li class="var" data-fa="Matches each message to the right client" data-property="Reads every enquiry" data-marketing="Reads the DMs that come in across your socials">Reads every message that comes in</li><li class="var" data-property="Fills in forms from details you key in once" data-marketing="Ranks brand deals first, not newest">Puts the ones that need you first</li><li class="var" data-property="Drafts replies, including the usual price, floor and facing questions" data-marketing="Drafts replies to the queries that come in by DM">Drafts replies in your voice</li><li class="var" data-property="Lines up viewings and drafts the reminders">Schedules appointments and drafts the reminders</li></ul>
+        <details class="how"><summary>See the steps</summary>
+        <div class="flow"><span>read</span><span>prioritise</span><span>draft reply</span><span class="human">you approve</span><span>send</span><i class="loop-tag">learns from results</i></div>
+        </details>
+      </div>
+      <div class="card" data-hide="property">
+        <span class="pill"><svg class="i"><use href="#i-send"/></svg>Outreach Wisp</span>
+        <h3 class="var" data-fa="Finds people to recruit or meet." data-marketing="Finds the right KOLs.">Finds the right people.</h3>
+        <ul class="feat"><li class="var" data-fa="Finds people to recruit or meet" data-marketing="Searches for KOLs and creators who fit your brand">Finds people who fit</li><li class="var">Scores each one against your criteria</li><li class="var">Drafts the first message and the follow ups</li></ul>
+        <details class="how"><summary>See the steps</summary>
+        <div class="flow"><span>find</span><span>score based on your criteria</span><span>draft</span><span class="human">you approve</span><span>send and follow up</span><span class="result">results: replies and meetings</span><i class="loop-tag">learns from results</i></div>
+        </details>
+      </div>
+      <div class="card" data-only="all" hidden>
+        <span class="pill"><svg class="i"><use href="#i-chat"/></svg>Reddit Wisp</span>
+        <h3>Joins the conversations that matter.</h3>
+        <p class="note">Posts on its own for now.</p>
+        <ul class="feat"><li>Picks the subreddits and threads worth your time</li><li>Reads the thread and its comments first</li><li>Writes the reply and posts it</li><li>Tracks results and flags likely customers</li></ul>
+        <details class="how"><summary>See the steps</summary>
+        <div class="flow"><span>pick a thread</span><span>read it</span><span>write in your voice</span><span>posts it</span><span class="result">results and leads</span><i class="loop-tag">learns from results</i></div>
+        </details>
+      </div>
+      <div class="card callout" data-only="all" hidden>
+        <span class="pill"><svg class="i"><use href="#i-spark"/></svg>Your Own Wisp</span>
+        <h3>Customise your own wisp.</h3>
+        <a class="btn primary" href="#contact">Delegate to Agent Casper</a>
+        <ul class="feat"><li>Built around one repeatable job from your day</li><li>Uses your criteria, your voice and your tools</li><li>Fills in the steps you repeat</li></ul>
+      </div>
+    </div>
+
+    <div class="connect">
+      <h2>Connected to the apps you already use.</h2>
+      <p class="sub">Casper works where your work already happens, so there is nothing new to learn.</p>
+      <div class="tiles">
+        <div class="tile"><svg class="i"><use href="#i-chat"/></svg><div><h3>WhatsApp</h3><p>Your Business chats.</p></div></div>
+        <div class="tile"><svg class="i"><use href="#i-plane"/></svg><div><h3>Telegram</h3><p>Approve drafts from a chat.</p></div></div>
+        <div class="tile"><svg class="i"><use href="#i-mail"/></svg><div><h3>Gmail</h3><p>Your email.</p></div></div>
+        <div class="tile"><svg class="i"><use href="#i-link"/></svg><div><h3>LinkedIn</h3><p>Casper drafts, you send.</p></div></div>
+        <div class="tile"><svg class="i"><use href="#i-db"/></svg><div><h3>A CRM we build</h3><p>No system yet? We build one around how you work.</p></div></div>
+        <div class="tile"><svg class="i"><use href="#i-cal"/></svg><div><h3>Calendar<em>Soon</em></h3><p>Booking times and reminders.</p></div></div>
+        <a class="tile ask" href="#contact"><svg class="i"><use href="#i-plus"/></svg><div><h3>Request a connection</h3><p>Use something else? Tell us and we will look at it.</p></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="products">
+  <div class="wrap">
+    <h2>Not another chatbot. They are agentic.</h2>
+    <p class="sub">A chatbot waits for you to ask. Casper's Wisps (subagents) run automations and get on with them.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="pill"><svg class="i"><use href="#i-clock"/></svg>An automation, not a chat</span>
+        <h3>Casper's wisps work on a schedule.</h3>
+        <p>They run the automation on their own timing, so it is ready when you sit down.</p>
+      </div>
+      <div class="card">
+        <span class="pill"><svg class="i"><use href="#i-loop"/></svg>Gets better</span>
+        <h3>They learn from your results.</h3>
+        <p>Wisps keep what worked, so each round starts smarter than the last.</p>
+      </div>
+      <div class="card">
+        <span class="pill"><svg class="i"><use href="#i-eye"/></svg>Human in the loop</span>
+        <h3>You stay the specialist.</h3>
+        <p>You are the human in the loop. Wisps do the groundwork, and you make the call.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block gray" id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <h2>Not sure where AI fits in your day?</h2>
+      <p class="sub">Start with one job, and we will tell you if Casper can take it.</p>
+      <form id="contact-form" class="form" novalidate>
+        <label for="cf-email">Your email</label>
+        <input id="cf-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required>
+        <label for="cf-job">What eats your day? <span class="opt">Optional</span></label>
+        <textarea id="cf-job" name="message" rows="3" placeholder="For example: replying to the same questions, or chasing new leads"></textarea>
+        <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn primary" type="submit">Send</button>
+        <p class="form-note" id="cf-note" role="status" aria-live="polite"></p>
+      </form>
+      <p class="alt">Or email <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Agent Casper. Practical AI, built around your business.</span>
+    <span>2026</span>
+  </div>
+</footer>
+
+<script>
+  // Persona tabs: reword the agent cards and show that persona's before and after.
+  // Without JavaScript the default ("All") text shows and the before/after panels stack.
+  (function () {
+    var tabs = [].slice.call(document.querySelectorAll(".tab"));
+    var panels = [].slice.call(document.querySelectorAll(".scn"));
+    var vars = [].slice.call(document.querySelectorAll(".var"));
+    var week = document.getElementById("week");
+    if (!tabs.length) return;
+    document.documentElement.classList.add("js");
+    vars.forEach(function (el) { el.setAttribute("data-all", el.textContent); });
+    var ids = tabs.map(function (t) { return t.getAttribute("data-tab"); });
+    function show(id, push) {
+      if (ids.indexOf(id) < 0) id = "all";
+      tabs.forEach(function (t) { var on = t.getAttribute("data-tab") === id; t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1; });
+      vars.forEach(function (el) { el.textContent = el.getAttribute("data-" + id) || el.getAttribute("data-all"); });
+      panels.forEach(function (p) { p.hidden = p.id !== "panel-" + id; });
+      if (week) week.hidden = id === "all";
+      var ag = document.getElementById("agentgrid");
+      if (ag) { ag.classList.toggle("two", id !== "all"); ag.classList.toggle("one", id === "property"); [].forEach.call(ag.querySelectorAll("[data-only]"), function (c) { c.hidden = c.getAttribute("data-only") !== id; }); [].forEach.call(ag.querySelectorAll("[data-hide]"), function (c) { c.hidden = c.getAttribute("data-hide") === id; }); }
+      if (push) { try { history.replaceState(null, "", id === "all" ? "#services" : "#agents-" + id); } catch (e) {} }
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { show(t.getAttribute("data-tab"), true); });
+      t.addEventListener("keydown", function (e) {
+        var n = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!n) return;
+        var next = tabs[(i + n + tabs.length) % tabs.length];
+        show(next.getAttribute("data-tab"), true); next.focus();
+      });
+    });
+    var m = /^#agents-(\w+)$/.exec(location.hash);
+    show(m ? m[1] : "all", false);
+    if (m) document.getElementById("services").scrollIntoView();
+  })();
+</script>
+<script>
+  // Paste the Formspree form URL (https://formspree.io/f/xxxx) into FORM_ENDPOINT. Formspree emails each submission to the address on the Formspree account.
+  // Until then, sending opens the visitor's email app with the message filled in.
+  var FORM_ENDPOINT = "";
+  var MAILTO = "delegate@agentcasper.work";
+  (function () {
+    var form = document.getElementById("contact-form");
+    var note = document.getElementById("cf-note");
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = form.email.value.trim();
+      var message = form.message.value.trim();
+      if (form.company.value) return; // spam trap
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        note.textContent = "Please enter a valid email so we can reply.";
+        form.email.focus();
+        return;
+      }
+      if (!FORM_ENDPOINT) {
+        var body = (message ? message + "\n\n" : "") + "Reply to: " + email;
+        window.location.href = "mailto:" + MAILTO + "?subject=" + encodeURIComponent("Agent Casper enquiry") + "&body=" + encodeURIComponent(body);
+        note.textContent = "Opening your email app. If nothing opens, write to " + MAILTO + ".";
+        return;
+      }
+      var btn = form.querySelector("button");
+      btn.disabled = true; note.textContent = "Sending...";
+      fetch(FORM_ENDPOINT, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify({ email: email, message: message, _subject: "Agent Casper enquiry" }) })
+        .then(function (r) { if (!r.ok) throw new Error(); form.reset(); note.textContent = "Thanks. We will reply by email."; })
+        .catch(function () { note.textContent = "That did not send. Please email " + MAILTO + " instead."; })
+        .then(function () { btn.disabled = false; });
+    });
+  })();
+</script>
+
+</body>
+</html>
