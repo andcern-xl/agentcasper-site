@@ -193,6 +193,7 @@
   .case .feat { border-top: 1px solid rgba(0,0,0,.08); }
   .case p.status { margin-top: auto !important; padding-top: 22px; font: 600 14px var(--display); color: var(--obsidian) !important; }
   .grid.two-up { grid-template-columns: repeat(2, 1fr); }
+  .grid.one-up { grid-template-columns: minmax(0, 720px); justify-content: center; }
   @media (max-width: 760px) { .grid.two-up { grid-template-columns: 1fr; } }
   .btn { white-space: nowrap; }
   html, body { overflow-x: hidden; }
@@ -305,7 +306,25 @@
   </div>
 </section>
 
-<section class="block gray" id="contact">
+<section class="block gray" id="ready">
+  <div class="wrap">
+    <h2>Ready-made apps.</h2>
+    <p class="sub">Apps we built for ourselves and now offer to you.</p>
+    <div class="grid one-up">
+      <div class="card case">
+        <span class="pill"><svg class="i"><use href="#i-db"/></svg>App</span>
+        <h3>Splitsie: split bills and track shared money</h3>
+        <p>Share costs with a group without anyone making an account. Join with a six-letter code and pick your name.</p>
+        <ul class="feat"><li>Log who paid and who shares each expense, with proof photos</li><li>Snap a receipt and the details fill in for you</li><li>Split by item, with tax and service shared out fairly</li><li>Foreign-currency expenses at live exchange rates</li><li>Settle up in the fewest payments</li><li>Joint accounts, savings and a monthly recap for couples and households</li></ul>
+        <p class="status">Live.</p>
+        <!-- TODO: swap href for the Splitsie payment link when Ansen sends it -->
+        <p style="margin-top:14px"><a class="btn primary" href="/#contact">Get Splitsie</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact">
   <div class="wrap" style="text-align:center">
     <h2>Have an app in mind?</h2>
     <p class="sub">Tell us what your business runs on, and we will tell you what we would build.</p>
