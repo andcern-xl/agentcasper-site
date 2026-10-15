@@ -8,14 +8,18 @@
   /* p.buy is one link for every size (text), or one link per size ({"S": "...", "M": "..."}) as create_stripe_links.py writes it */
   function linkFor(p, size) { var b = p.buy; if (!b) return null; if (typeof b === 'string') return /^https:\/\/buy\.stripe\.com\//.test(b) ? b : null; var u = b[size]; return typeof u === 'string' && /^https:\/\/buy\.stripe\.com\//.test(u) ? u : null; }
   /* [text](url) in a description becomes a link; only site paths and https links are allowed, everything else stays text */
+  function addText(node, t) {
+    var parts = t.split(/\*([^*]+)\*/);
+    parts.forEach(function (x, i) { if (!x) return; if (i % 2) node.appendChild(el('em', null, x)); else node.appendChild(document.createTextNode(x)); });
+  }
   function linkify(node, text) {
     var re = /\[([^\]]+)\]\((\/[^)\s]*|https:\/\/[^)\s]+)\)/g, last = 0, m;
     while ((m = re.exec(text))) {
-      node.appendChild(document.createTextNode(text.slice(last, m.index)));
+      addText(node, text.slice(last, m.index));
       var a = el('a', null, m[1]); a.href = m[2]; if (m[2].charAt(0) !== '/') { a.target = '_blank'; a.rel = 'noopener'; } node.appendChild(a);
       last = re.lastIndex;
     }
-    node.appendChild(document.createTextNode(text.slice(last)));
+    addText(node, text.slice(last));
   }
   /* Description layout: first paragraph is the lead, a paragraph whose first line ends in ":" gets a label and its "- " lines become a list, the last of three or more paragraphs is the closing line */
   function describe(text) {
@@ -29,7 +33,10 @@
         return;
       }
       var cls = i === 0 ? 'desc-lead' : (i === blocks.length - 1 && blocks.length > 2 ? 'desc-closing' : 'desc-body');
-      var p = el('p', cls); linkify(p, lines.join(' ')); box.appendChild(p);
+      var p = el('p', cls);
+      lines.forEach(function (l, n) { if (n) p.appendChild(document.createElement('br')); linkify(p, l); });
+      if (cls !== 'desc-closing') { p.textContent = ''; linkify(p, lines.join(' ')); }
+      box.appendChild(p);
     });
     return box;
   }
