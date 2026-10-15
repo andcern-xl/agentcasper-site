@@ -37,7 +37,14 @@
   .thumbs button { width: 64px; height: 64px; border-radius: 10px; padding: 0; overflow: hidden; border: 2px solid transparent; background: none; cursor: pointer; }
   .thumbs button.on { border-color: var(--obsidian); }
   .thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .desc { color: #26262d; margin: 0 0 24px; white-space: pre-line; }
+  .desc { color: #26262d; margin: 0 0 28px; font-size: 15px; line-height: 1.6; }
+  .desc p, .desc ul { margin: 0 0 16px; }
+  .desc .desc-lead { font: 600 17px/1.45 var(--display); color: var(--obsidian); letter-spacing: -.01em; }
+  .desc .desc-label { font: 600 12px var(--ui); text-transform: uppercase; letter-spacing: .08em; color: var(--charcoal); margin: 22px 0 8px; }
+  .desc ul { padding-left: 18px; margin-top: 0; }
+  .desc li { margin-bottom: 4px; }
+  .desc .desc-closing { font-weight: 600; color: var(--obsidian); padding-top: 14px; border-top: 1px solid rgba(0,0,0,.08); margin-bottom: 0; }
+  .desc a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
   .size-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
   button.link { font: 500 14px var(--ui); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 3px; color: inherit; }
   .sizes { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
@@ -46,6 +53,7 @@
   .size.on { background: var(--obsidian); color: #fff; border-color: var(--obsidian); }
   .size.out { color: #b0b0bb; text-decoration: line-through; cursor: not-allowed; background: transparent; }
   .note { color: var(--charcoal); font-size: 14px; margin: 0 0 16px; }
+  .note.delivery { margin: 22px 0 0; padding-top: 16px; border-top: 1px solid rgba(0,0,0,.08); }
   .btn { display: inline-block; font: 500 16px var(--display); text-decoration: none; padding: 14px 32px; border-radius: 100px; border: 1px solid transparent; cursor: pointer; }
   .btn.primary { background: var(--obsidian); color: #fff; box-shadow: var(--shadow-btn); }
   .btn.primary:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; }
@@ -65,6 +73,7 @@
   .ghost-logo { width: 22px; height: 26px; color: var(--obsidian); }
 </style>
 <script src="/motion.js"></script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
 <body>
 <header><div class="bar"><a class="brand" href="/"><svg class="ghost-logo" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1C6.5 1 2.5 5 2.5 10.5V26l3.2-2.6L9 26l3-2.6L15 26l3.3-2.6L21.5 26V10.5C21.5 5 17.5 1 12 1z" fill="currentColor"/><circle cx="8.8" cy="11" r="1.6" fill="#fff"/><circle cx="15.2" cy="11" r="1.6" fill="#fff"/></svg>Agent Casper</a><a class="back" href="/shop/">All products</a></div></header>

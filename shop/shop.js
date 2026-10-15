@@ -17,6 +17,22 @@
     }
     node.appendChild(document.createTextNode(text.slice(last)));
   }
+  /* Description layout: first paragraph is the lead, a paragraph whose first line ends in ":" gets a label and its "- " lines become a list, the last of three or more paragraphs is the closing line */
+  function describe(text) {
+    var box = el('div', 'desc'), blocks = text.split(/\n\s*\n/);
+    blocks.forEach(function (b, i) {
+      var lines = b.split('\n').filter(function (l) { return l.trim(); }), items = lines.filter(function (l) { return /^\s*-\s/.test(l); });
+      if (items.length) {
+        var head = lines.filter(function (l) { return !/^\s*-\s/.test(l); });
+        if (head.length) { var lb = el('p', 'desc-label'); linkify(lb, head.join(' ')); box.appendChild(lb); }
+        var ul = el('ul'); items.forEach(function (l) { var li = el('li'); linkify(li, l.replace(/^\s*-\s/, '')); ul.appendChild(li); }); box.appendChild(ul);
+        return;
+      }
+      var cls = i === 0 ? 'desc-lead' : (i === blocks.length - 1 && blocks.length > 2 ? 'desc-closing' : 'desc-body');
+      var p = el('p', cls); linkify(p, lines.join(' ')); box.appendChild(p);
+    });
+    return box;
+  }
   function safeId(s) { return String(s).replace(/[^A-Za-z0-9_-]/g, ''); }
 
   Promise.all([get('/shop/products.json'), get('/shop/size-chart.json').catch(function () { return null; })]).then(function (d) {
@@ -62,7 +78,7 @@
     var right = el('div', 'info');
     right.appendChild(el('h1', null, p.name));
     right.appendChild(el('p', 'price big', money(p.price, cur)));
-    if (p.description) { var dp = el('p', 'desc'); linkify(dp, p.description); right.appendChild(dp); }
+    if (p.description) right.appendChild(describe(p.description));
 
     var head = el('div', 'size-head'); head.appendChild(el('strong', null, 'Size'));
     var hasChart = chart && chart.rows && chart.rows.length;
@@ -89,7 +105,7 @@
       location.href = u + (u.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(safeId(p.id) + '_' + safeId(chosen));
     });
     right.appendChild(msg); right.appendChild(buy);
-    if (deliveryNote) right.appendChild(el('p', 'note', deliveryNote));
+    if (deliveryNote) right.appendChild(el('p', 'note delivery', deliveryNote));
 
     var wrap = el('div', 'product-grid'); wrap.appendChild(left); wrap.appendChild(right); root.appendChild(wrap);
   }
