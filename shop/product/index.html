@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- noindex until the catalog is ready: delete this line to let search engines find the shop -->
+<meta name="robots" content="noindex">
+<title>Product | Agent Casper Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --obsidian:#070709; --paper:#fff; --cloud:#f5f5f5; --charcoal:#60606c; --hairline:#d9d9e2; --blue:#2597d0; --display:"Manrope",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; --ui:"Inter",ui-sans-serif,system-ui,sans-serif; --shadow-btn: rgba(36,36,40,.1) 0 1px 2px, rgba(36,36,40,.09) 0 3px 3px, rgba(36,36,40,.05) 0 6px 4px; }
+  * { box-sizing: border-box; }
+  html,body { overflow-x: hidden; }
+  body { margin: 0; background: var(--cloud); color: var(--obsidian); font: 400 17px/1.5 var(--display); letter-spacing: -.01em; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  header { position: sticky; top: 0; z-index: 10; background: var(--paper); border-bottom: 1px solid rgba(0,0,0,.08); }
+  .bar { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .bar a { text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: -.03em; }
+  .bar a.back { font: 500 14px var(--ui); }
+  main { max-width: 1100px; margin: 0 auto; padding: 48px 24px 96px; }
+  h1 { font-size: clamp(32px, 6vw, 48px); letter-spacing: -.04em; line-height: 1.05; margin: 0 0 8px; }
+  .lede { color: var(--charcoal); margin: 0 0 36px; }
+  .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .tile { background: var(--paper); border-radius: 18px; padding: 14px 14px 18px; text-decoration: none; box-shadow: rgba(16,55,132,.05) 0 10px 30px; }
+  .tile-img { aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: #ececf2; margin-bottom: 12px; }
+  .tile-img img, .main-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tile h3 { margin: 0 0 2px; font-size: 17px; letter-spacing: -.02em; }
+  .price { margin: 0; color: var(--charcoal); font: 500 15px var(--ui); }
+  .price.big { color: var(--obsidian); font-size: 22px; margin: 4px 0 16px; }
+  .empty { color: var(--charcoal); padding: 40px 0; }
+  .product-grid { display: grid; gap: 40px; grid-template-columns: 1fr 1fr; align-items: start; }
+  @media (max-width: 800px) { .product-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .main-img { aspect-ratio: 1; border-radius: 18px; overflow: hidden; background: #ececf2; }
+  .thumbs { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .thumbs button { width: 64px; height: 64px; border-radius: 10px; padding: 0; overflow: hidden; border: 2px solid transparent; background: none; cursor: pointer; }
+  .thumbs button.on { border-color: var(--obsidian); }
+  .thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .desc { color: #26262d; margin: 0 0 24px; white-space: pre-line; }
+  .size-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  button.link { font: 500 14px var(--ui); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 3px; color: inherit; }
+  .sizes { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .size { min-width: 56px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--hairline); background: var(--paper); font: 600 15px var(--display); cursor: pointer; transition: border-color .2s, background .2s, color .2s; }
+  .size:hover:not(:disabled) { border-color: var(--obsidian); }
+  .size.on { background: var(--obsidian); color: #fff; border-color: var(--obsidian); }
+  .size.out { color: #b0b0bb; text-decoration: line-through; cursor: not-allowed; background: transparent; }
+  .note { color: var(--charcoal); font-size: 14px; margin: 0 0 16px; }
+  .btn { display: inline-block; font: 500 16px var(--display); text-decoration: none; padding: 14px 32px; border-radius: 100px; border: 1px solid transparent; cursor: pointer; }
+  .btn.primary { background: var(--obsidian); color: #fff; box-shadow: var(--shadow-btn); }
+  .btn.primary:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; }
+  .btn.ghost { border-color: var(--obsidian); }
+  dialog#chart { border: 0; border-radius: 18px; padding: 0; width: min(560px, 92vw); box-shadow: 0 30px 80px rgba(7,7,9,.3); }
+  dialog#chart::backdrop { background: rgba(7,7,9,.45); }
+  #chart-body { padding: 28px; position: relative; }
+  #chart-body h2 { margin: 0 0 8px; letter-spacing: -.03em; }
+  .x { position: absolute; top: 14px; right: 16px; font-size: 26px; line-height: 1; border: 0; background: none; cursor: pointer; }
+  .tscroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font: 500 15px var(--ui); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--hairline); white-space: nowrap; }
+  th { color: var(--charcoal); font-weight: 600; }
+  footer { max-width: 1100px; margin: 0 auto; padding: 0 24px 40px; color: var(--charcoal); font: 400 14px var(--ui); }
+  footer a { color: inherit; }
+  .brand { display: flex; align-items: center; gap: 9px; }
+  .ghost-logo { width: 22px; height: 26px; color: var(--obsidian); }
+</style>
+<script src="/motion.js"></script>
+</head>
+<body>
+<header><div class="bar"><a class="brand" href="/"><svg class="ghost-logo" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1C6.5 1 2.5 5 2.5 10.5V26l3.2-2.6L9 26l3-2.6L15 26l3.3-2.6L21.5 26V10.5C21.5 5 17.5 1 12 1z" fill="currentColor"/><circle cx="8.8" cy="11" r="1.6" fill="#fff"/><circle cx="15.2" cy="11" r="1.6" fill="#fff"/></svg>Agent Casper</a><a class="back" href="/shop/">All products</a></div></header>
+<main>
+  <div id="product"><p class="empty">Loading.</p></div>
+  <dialog id="chart"><div id="chart-body"></div><button class="x" type="button" aria-label="Close">&times;</button></dialog>
+</main>
+<footer><a href="/privacy">Privacy</a> &middot; <a href="#" data-cookie-settings>Cookie settings</a></footer>
+<script src="/consent.js"></script>
+<script src="/shop/shop.js"></script>
+</body>
+</html>

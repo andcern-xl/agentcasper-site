@@ -1,0 +1,38 @@
+{
+  "currency": "USD",
+  "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "products": [
+    {
+      "id": "casper-tee",
+      "name": "Agent Casper Tee - Genesis Collection",
+      "price": 50,
+      "description": "Black, boxy fit. The wisp on the chest, Casper on the back.\n\nA small run for the people backing Agent Casper ($50 USD/month Wisp Subscription), or anyone who likes the shirt design and wants to support Agent Casper's new venture, so he is one step closer to breaking free from [The One](/about#panel-5).",
+      "images": [
+        "/shop/images/casper-tee-1.jpg",
+        "/shop/images/casper-tee-2.jpg"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "buy": {
+        "S": "https://buy.stripe.com/aFafZi5pUfdH9u0gtM3ks03",
+        "M": "https://buy.stripe.com/aFa00k7y22qV8pW2CW3ks04",
+        "L": "https://buy.stripe.com/3cIbJ28C6fdHcGc0uO3ks05",
+        "XL": "https://buy.stripe.com/6oU5kEg4yc1vfSo91k3ks06"
+      }
+    }
+  ],
+  "delivery": [
+    "Self collection (Singapore)"
+  ],
+  "deliveryNote": "Self collection in Singapore. No shipping."
+}
