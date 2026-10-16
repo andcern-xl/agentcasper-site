@@ -14,7 +14,7 @@
   body { margin: 0; background: var(--cloud); color: var(--obsidian); font: 400 17px/1.55 var(--display); letter-spacing: -.01em; -webkit-font-smoothing: antialiased; }
   header { background: var(--paper); border-bottom: 1px solid rgba(0,0,0,.08); }
   .bar { max-width: 640px; margin: 0 auto; padding: 0 20px; height: 60px; display: flex; align-items: center; }
-  .bar a { color: inherit; text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: -.03em; }
+  .bar a { display: flex; align-items: center; gap: 9px; color: inherit; text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: -.03em; }
   main { max-width: 640px; margin: 0 auto; padding: 48px 20px 80px; }
   h1 { font-size: clamp(32px, 6vw, 44px); letter-spacing: -.04em; line-height: 1.05; margin: 0 0 12px; }
   p { margin: 0 0 14px; color: #26262d; }
@@ -24,6 +24,7 @@
   .card li { margin: 4px 0; }
   .btn { display: inline-block; background: var(--obsidian); color: #fff; font: 500 16px var(--display); text-decoration: none; padding: 14px 28px; border-radius: 100px; box-shadow: var(--shadow-btn); }
   .btn:hover { opacity: .88; }
+  .back { display: inline-block; font-size: 14px; color: var(--charcoal); margin-bottom: 20px; }
   .small { font-size: 14px; color: var(--charcoal); margin-top: 18px; }
   a { text-decoration-color: var(--blue); text-underline-offset: 3px; }
 </style>
@@ -31,8 +32,9 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
 <body>
-<header><div class="bar"><a href="/">Agent Casper</a></div></header>
+<header><div class="bar"><a href="/"><svg width="22" height="26" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1C6.5 1 2.5 5 2.5 10.5V26l3.2-2.6L9 26l3-2.6L15 26l3.3-2.6L21.5 26V10.5C21.5 5 17.5 1 12 1z" fill="currentColor"/><circle cx="8.8" cy="11" r="1.6" fill="#fff"/><circle cx="15.2" cy="11" r="1.6" fill="#fff"/></svg>Agent Casper</a></div></header>
 <main>
+  <a class="back" href="https://agentcasper.work">&larr; Back to agentcasper.work</a>
   <h1>Get started with Agent Casper.</h1>
   <p>Deploy a Wisp (sub-agent) that works for you. Checkout is on Stripe and takes a couple of minutes.</p>
   <div class="card">
