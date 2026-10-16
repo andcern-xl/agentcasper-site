@@ -207,6 +207,11 @@
   /* each page (image + caption + Next) must fit one screen, so the caption is never cut off */
   .story .frame { width: min(100%, calc((100vh - 300px) * 1.792)); width: min(100%, calc((100svh - 300px) * 1.792)); min-width: min(100%, 420px); margin: 0 auto; }
   .story figure { min-height: calc(100svh - 88px); }
+  /* landing on #lore also shows the heading, so page 1 gets a smaller picture */
+  #lore { scroll-margin-top: 64px; padding-top: 40px; }
+  #lore .sub { margin-bottom: 28px; }
+  #panel-1 .frame { width: min(100%, calc((100vh - 460px) * 1.792)); width: min(100%, calc((100svh - 460px) * 1.792)); min-width: min(100%, 420px); }
+  #panel-1 { min-height: 0; }
   #contact { scroll-margin-top: 64px; }
   .compare { position: relative; --v: 0%; touch-action: pan-y; }
   .compare img.grey { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(.95); clip-path: inset(0 0 0 var(--v)); }
