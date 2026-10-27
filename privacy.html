@@ -38,7 +38,7 @@
 <header><div class="bar"><a href="/">Agent Casper</a><a class="back" href="/">Back to the site</a></div></header>
 <main>
   <h1>Privacy.</h1>
-  <p class="updated">Last updated 23 October 2026.</p>
+  <p class="updated">Last updated 28 October 2026.</p>
 
   <div class="short">
     <h2>The short version</h2>
@@ -46,7 +46,7 @@
       <li>If you use the contact form, we keep your email and message so we can reply to you.</li>
       <li>We use Google Analytics only if you accept it. If you say no, it never loads.</li>
       <li>If you use Inbox Wisp and connect Google, it reads mail only from the people you choose, and only to rank what needs you. We drop the email text as soon as it has been read.</li>
-      <li>If you link WhatsApp, it only listens. It never sends a message, never reads groups, and drops the text of a chat as soon as it has been read.</li>
+      <li>If you link WhatsApp, it only listens. It never sends a message, reads a group only if you choose it, and drops the text of a chat as soon as it has been read.</li>
       <li>When someone new writes to you, it reads their first message once to decide whether they belong, keeps only its decision and a short reason, and asks you when it is not sure.</li>
       <li>We do not sell your information, use it for ads, or let anyone read your messages.</li>
       <li>Ask us to see, fix or delete what we hold, any time: <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a>.</li>
@@ -97,6 +97,7 @@
   <ul>
     <li><strong>Anthropic</strong> (US). To read a message, the text of that message is sent to Anthropic's Claude through its API. The exact details and your notes are also sent to Claude when Inbox Wisp reads your next message or rewrites your notes. <a href="https://www.anthropic.com/legal/commercial-terms">Anthropic's commercial terms</a> say it does not train its models on data sent this way. If you add your own Anthropic key in Settings, the text goes to your own Anthropic account instead.</li>
     <li><strong>Supabase</strong> (Singapore) stores the records above. <strong>Railway</strong> (Singapore) runs the app. Both only process data for us.</li>
+    <li><strong>Telegram</strong>, only if you connect it. It receives the summaries and lists described under Inbox Wisp and Telegram.</li>
     <li><strong>Google</strong>, because you are using your Google account.</li>
     <li>We do not sell your data, share it with anyone else, use it for advertising, or use it to train any model. No screen or support tool at Agent Casper shows your messages.</li>
   </ul>
@@ -121,10 +122,11 @@
   <h3>What it does with your chats</h3>
   <ul>
     <li>It only listens. It never sends a message and never replies for you.</li>
-    <li>It reads direct chats only. Groups, status updates and channels are never read.</li>
+    <li>It reads direct chats, and the groups you choose on the People page. A group is never read unless you chose it. Status updates and channels are never read.</li>
     <li>It reads the text of chats with people you chose. When someone new writes, it reads their first message once to decide whether they belong, in the same way as for mail, and keeps only its decision and a short reason.</li>
     <li>A new message waits in our database for a few minutes (up to 30 minutes if you are away from the app), so a run of short messages is read as one conversation. It is then read and the text is deleted.</li>
-    <li>When you link, it looks once at your chats from the last two weeks that are waiting on a reply. It also lists your recent chats (the name or number, the name the person chose for themselves on WhatsApp or you saved for them, and how many messages, never what was said) so you can pick who matters, and keeps that list for up to 7 days. For people you choose later, it uses the recent messages it has seen from them.</li>
+    <li>When you link, it looks once at your chats from the last two weeks that are waiting on a reply. It also lists your chats from the last 90 days (the name or number, the name the person chose for themselves on WhatsApp or you saved for them, the group name, how many messages and when the last one was) so you can pick who matters. For people you choose later, it uses the recent messages it has seen from them.</li>
+    <li>To help you pick, it reads the most recent messages of a chat once, writes a one-line summary of what the chat is about and whether it looks important, and deletes the text straight away. It keeps the summary and the list of chats until you disconnect WhatsApp or delete what it has kept in Settings. Nothing is chosen for you: a chat only joins your list when you accept it, and you can mute it again at any time.</li>
     <li>When you answer someone from your phone, it notes that the chat has been answered. If your message holds a question, an offer or a promise, it is read once to keep one short note, and the text is dropped.</li>
     <li>The last few messages of each chat, yours and theirs, are held in the app's memory (not saved to disk) so a new message can be read with the conversation before it. They are gone when the app restarts.</li>
     <li>What we keep is the same as for mail: the sender's name and number, a short summary, steps, a due date and a reason, for 90 days unless you set a shorter time.</li>
@@ -137,7 +139,17 @@
   <p>Anthropic (US) receives the text of a chat it reads, as described above. WhatsApp sees a linked device on your account. Supabase and Railway (both Singapore) store the records and run the app.</p>
 
   <h2>Inbox Wisp and Telegram</h2>
-  <p>If you connect Telegram, Inbox Wisp sends your morning brief and alerts to your chat with its bot. They hold short summaries (who, what, by when), not the text of your messages. Telegram runs that chat, and Telegram chats are not end-to-end encrypted. You can stop it with the Disconnect button in Connections (Telegram) or by sending /stop to the bot.</p>
+  <p>If you connect Telegram, Inbox Wisp sends messages to your chat with its bot. Telegram runs that chat, and Telegram chats are not end-to-end encrypted.</p>
+  <ul>
+    <li>Your morning summary lists what needs you: a short summary of each item, the name of the person it is from, and when it is due. It does not contain the text of your messages.</li>
+    <li>Each item has three buttons: Done, On it and Not today. Not today hides the item for 3 days. When you finish or drop an item, Inbox Wisp keeps one short line saying so, so it learns what you deal with.</li>
+    <li>About 5 days after you tap On it, it asks once how it went: Sorted, Still waiting or Drop it.</li>
+    <li>The command /todo lists what is waiting on you. The command /later lists what you set aside, and lets you bring each item back.</li>
+    <li>The command /recap writes a short recap of where things stand, from the same short summaries, and sends it to your chat.</li>
+    <li>Only the person who connected the chat can use its buttons.</li>
+    <li>Delete everything removes what Inbox Wisp kept. It cannot remove messages that are already in your Telegram chat. Delete the chat in Telegram to remove them.</li>
+    <li>You can stop it with the Disconnect button in Connections (Telegram) or by sending /stop to the bot.</li>
+  </ul>
 
   <h2>Analytics and cookies</h2>
   <p>We would like to know which pages get read, so we can make the site better. For that we use Google Analytics, but only if you click Accept on the cookie notice. Until then, Google Analytics does not load and sets no cookies.</p>
