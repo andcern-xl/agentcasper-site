@@ -68,7 +68,7 @@
   <ul>
     <li><strong>Your email address and name</strong>, to know which account is yours.</li>
     <li><strong>Read-only access to your Gmail</strong> (the <code>gmail.readonly</code> permission). It cannot send, delete or change anything in your mailbox.</li>
-    <li><strong>Permission to add events to your Google Calendar</strong> (the <code>calendar.events</code> permission). Inbox Wisp never writes to your Google Calendar unless you turn that on. By default it only suggests events and asks you first. You can take an event off again at any time.</li>
+    <li><strong>Permission to read and add events on your Google Calendar</strong> (the <code>calendar.events</code> permission). It reads your calendar as described under "What it does with your calendar". It never writes to your Google Calendar unless you turn that on. By default it only suggests events and asks you first. You can take an event off again at any time.</li>
   </ul>
 
   <h3>What it does with your mail</h3>
@@ -80,6 +80,16 @@
     <li>For each message it reads, it works out a short summary, a short list of steps if the message asks you for things, whether you need to reply, a due date if there is one, and why it matters.</li>
     <li>It also picks out a few exact details that a summary has no room for, such as an address, an amount, a time or a reference number. It never keeps passwords, one-time codes, or card, bank account or ID numbers.</li>
     <li>The text of the email is deleted as soon as it has been read. It is not kept, even if reading fails.</li>
+  </ul>
+
+  <h3>What it does with your calendar</h3>
+  <ul>
+    <li>If you allow calendar access, Inbox Wisp reads the events on your main Google Calendar: the title, time, place, the description and who is invited. It cannot read other calendars, and it only reads, unless you turn on adding events.</li>
+    <li>It uses them to show what is on today and tomorrow in your daily summary and on your Inbox page, to warn you when a date in your mail clashes with an event, and to learn how your week usually goes (for example a regular class, who you meet often, where you often are), so it can tell what is worth your attention.</li>
+    <li>It decides what to show. Routine items and anything you mark as not useful are left out. To decide, the details of today's and tomorrow's events and what it has learned about your week are sent to Claude. What it has learned about your week is also sent to Claude each time it reads one of your messages, to judge what matters to you. If you turn calendar reading off, none of it is sent.</li>
+    <li>If you connect Telegram, the calendar lines that appear in your daily summary are sent to Telegram with the rest of the summary.</li>
+    <li>Events are read when needed and are not stored. What is kept: the lines that appear in a summary, and short facts about your week such as "Yoga on Tuesdays around 7am" or "Meets Priya often". A fact such as "Meets Priya often" keeps that person's email address, taken from your invitations. They are kept until you delete them with "Delete everything", which also switches calendar reading off. A learned fact fades on its own if it stops showing up in your calendar.</li>
+    <li>You can turn calendar reading off under Outputs at any time. It starts on for people who allowed calendar access, and the app tells you once when it begins.</li>
   </ul>
 
   <h3>What we keep</h3>
@@ -145,7 +155,7 @@
     <li>Each item has three buttons: Done, On it and Not today. Not today hides the item for 3 days. When you finish or drop an item, Inbox Wisp keeps one short line saying so, so it learns what you deal with.</li>
     <li>About 5 days after you tap On it, it asks once how it went: Sorted, Still waiting or Drop it.</li>
     <li>The command /todo lists what is waiting on you. The command /later lists what you set aside, and lets you bring each item back.</li>
-    <li>The command /recap writes a short recap of where things stand, from the same short summaries, and sends it to your chat.</li>
+    <li>The command /catchup writes a short recap of where things stand, from the same short summaries, and sends it to your chat.</li>
     <li>Only the person who connected the chat can use its buttons.</li>
     <li>Delete everything removes what Inbox Wisp kept. It cannot remove messages that are already in your Telegram chat. Delete the chat in Telegram to remove them.</li>
     <li>You can stop it with the Disconnect button in Connections (Telegram) or by sending /stop to the bot.</li>
