@@ -73,7 +73,9 @@
 
   <h3>What it does with your mail</h3>
   <ul>
-    <li>It reads the text only of mail from the people you choose in the app. Newsletters, notifications and other automated mail are skipped even from people you chose.</li>
+    <li>It reads the text only of mail from the people you choose in the app, plus the two cases below: mail that matches something you are focused on, and anything you ask about in Telegram. Newsletters, notifications and other automated mail are skipped even from people you chose.</li>
+    <li>If you tell it what you are focused on right now (for example travel), it also searches your whole Gmail for mail about that, from any sender, including automated senders such as airlines and hotels. It reads up to 25 matching messages from the last 180 days for each search. It searches when you add or change a focus, and when you press "Search my mail for this now". The words it searches for are written by Claude from your focus. Each message is then read like any other: its text is deleted once it has been read, and only the summary and the exact details are kept. Remove the focus and it stops.</li>
+    <li>If you search for a person in People and press "Search your Gmail", it looks at who sent the mail and the subject line of up to 30 matching messages, so you can add that person. It reads no message text, and nothing about the search is kept.</li>
     <li>When someone new writes, it reads their first message once to decide whether they belong with the work you told it about. It keeps only its decision and a short reason, never the message. If it is not sure, it asks you and reads nothing more from them until you answer. You can change this in Settings, so it asks you about every new person, or leaves new people alone.</li>
     <li>When you first connect, it takes a one-time look at recent mail headers so you can pick people: who sent it, the subject line, and who you have written back to (the recipient of your sent mail). It reads no message text for this, and keeps the result for up to 7 days.</li>
     <li>When you reply to someone you chose, in a conversation that is waiting on you, it reads your reply once, against what that message asked, to keep one sentence about what you told them and to tick the steps your reply covers. The text of your reply is not stored.</li>
@@ -114,7 +116,7 @@
   </ul>
 
   <h3>How we protect it</h3>
-  <p>Your Google sign-in token and your saved WhatsApp login are stored encrypted. Each person's records can only be read by that person's own login. Connections use HTTPS. We never show your sign-in token or your own AI key back to you, or write them to logs.</p>
+  <p>Your Google sign-in token and your saved WhatsApp login are stored encrypted. Your notes, what Inbox Wisp has learned about you, and the short note it keeps on each sender are also encrypted in our database, with a separate key for each account, so they cannot be read by browsing it. When our support tools open them, for example to help you with a problem, it is written down first with the reason, and you can see it in Settings under Plan and usage (Who has looked at your data). Message subjects and summaries are not encrypted this way yet. Each person's records can only be read by that person's own login. Connections use HTTPS. We never show your sign-in token or your own AI key back to you, or write them to logs.</p>
 
   <h3>Your control</h3>
   <ul>
