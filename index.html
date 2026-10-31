@@ -56,6 +56,9 @@
 
   /* hero: the only place the sky gradient appears */
   .hero { background: var(--sky); text-align: center; padding: 112px 0 132px; }
+  .hero { min-height: calc(100vh - 65px); min-height: calc(100svh - 65px); display: flex; align-items: center; box-sizing: border-box; }
+  .hero > .wrap { width: 100%; }
+  #services, #products, #contact { scroll-margin-top: 64px; }
   .pill { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #000; border-radius: 100px; padding: 5px 13px; font: 500 12.5px var(--display); letter-spacing: -.01em; color: var(--obsidian); }
   .hero .pill { margin-bottom: 30px; }
   h1 { color: #fff; font-weight: 600; font-size: clamp(44px, 8vw, 80px); line-height: .94; letter-spacing: -.04em; margin: 0 auto 28px; max-width: 13ch; text-shadow: 0 2px 30px rgba(40,70,110,.22); }
@@ -90,6 +93,8 @@
   .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
   .card { background: #fff; border-radius: 18px; padding: 40px; box-shadow: var(--shadow-card); border: 1px solid rgba(215,230,245,.7); }
   .card p { color: var(--charcoal); margin: 0; }
+  .card p.price { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,.08); font: 600 15px/1.45 var(--display); letter-spacing: -.01em; color: var(--obsidian); }
+  .card p.price small { display: block; margin-top: 4px; font: 500 14px/1.4 var(--ui); color: var(--charcoal); }
 
   /* flow: each step is a box, joined by arrows */
   .feat { list-style: none; margin: 22px 0 0; padding: 22px 0 0; border-top: 1px solid rgba(0,0,0,.08); display: grid; gap: 12px; }
@@ -320,7 +325,8 @@
       <div class="card">
         <span class="pill"><svg class="i"><use href="#i-mail"/></svg>Inbox Wisp</span>
         <h3 class="var" data-fa="Keeps up with your clients." data-property="Keeps up with buyers and sellers." data-marketing="Manages your social inbox.">Never lets a message slip.</h3>
-        <ul class="feat"><li class="var" data-fa="Matches each message to the right client" data-property="Reads every enquiry" data-marketing="Reads the DMs that come in across your socials">Reads every message that comes in</li><li class="var" data-property="Fills in forms from details you key in once" data-marketing="Ranks brand deals first, not newest">Puts the ones that need you first</li><li class="var" data-property="Drafts replies, including the usual price, floor and facing questions" data-marketing="Drafts replies to the queries that come in by DM">Drafts replies in your voice</li><li class="var" data-property="Lines up viewings and drafts the reminders">Schedules appointments and drafts the reminders</li></ul>
+        <ul class="feat"><li class="var" data-fa="Matches each message to the right client" data-property="Reads every enquiry" data-marketing="Reads the DMs that come in across your socials">Reads every message that comes in</li><li class="var" data-property="Fills in forms from details you key in once" data-marketing="Ranks brand deals first, not newest">Puts the ones that need you first</li><li class="var" data-property="Drafts replies, including the usual price, floor and facing questions" data-marketing="Drafts replies to the queries that come in by DM">Drafts replies in your voice</li><li class="var" data-property="Lines up viewings and drafts the reminders">Schedules appointments and drafts the reminders</li><li>Reads your calendar to spot clashes and suggest times</li><li>Sends timed reminders to your chat</li></ul>
+        <p class="price">$50 a month<small>No setup fee. About 1,000 messages a month, email and WhatsApp together.</small></p>
         <details class="how"><summary>See the steps</summary>
         <div class="flow"><span>read</span><span>prioritise</span><span>draft reply</span><span class="human">you approve</span><span>send</span><i class="loop-tag">learns from results</i></div>
         </details>
@@ -329,9 +335,16 @@
         <span class="pill"><svg class="i"><use href="#i-send"/></svg>Outreach Wisp</span>
         <h3 class="var" data-fa="Finds people to recruit or meet." data-property="Finds agents to recruit and people for your talks." data-marketing="Finds the right KOLs.">Finds the right people.</h3>
         <ul class="feat"><li class="var" data-fa="Finds people to recruit or meet" data-property="Finds agents to recruit and people to invite to your talks" data-marketing="Searches for KOLs and creators who fit your brand">Finds people who fit</li><li class="var">Scores each one against your criteria</li><li class="var">Drafts the first message and the follow ups</li></ul>
+        <p class="price">$200 setup, then $50 a month per seat<small>Each seat covers about 150 people a month. Setup is built with you.</small></p>
         <details class="how"><summary>See the steps</summary>
         <div class="flow"><span>find</span><span>score based on your criteria</span><span>draft</span><span class="human">you approve</span><span>send and follow up</span><span class="result">results: replies and meetings</span><i class="loop-tag">learns from results</i></div>
         </details>
+      </div>
+      <div class="card" data-only="all fa" hidden>
+        <span class="pill"><svg class="i"><use href="#i-db"/></svg>CRM Wisp</span>
+        <h3>A CRM that fits your practice.</h3>
+        <ul class="feat"><li>Clients, policies, claims, meetings and tasks in one place</li><li>One ranked list of what to do next</li><li>Your own name, logo and colours</li><li>Bring your clients over from Excel or Google Drive</li></ul>
+        <p class="price">$800 setup, then from $50 a month<small>$50 up to 100 clients, $75 up to 250, $100 up to 500. Above 500, contact us. <a href="apps.html">See the build</a></small></p>
       </div>
       <div class="card" data-only="all marketing" hidden>
         <span class="pill"><svg class="i"><use href="#i-chat"/></svg>Reddit Wisp</span>
@@ -359,7 +372,7 @@
         <div class="tile"><svg class="i"><use href="#i-mail"/></svg><div><h3>Gmail</h3><p>Your email.</p></div></div>
         <div class="tile"><svg class="i"><use href="#i-link"/></svg><div><h3>LinkedIn</h3><p>Casper drafts, you send.</p></div></div>
         <div class="tile"><svg class="i"><use href="#i-db"/></svg><div><h3>A CRM we build</h3><p>No system yet? We build one around how you work.</p></div></div>
-        <div class="tile"><svg class="i"><use href="#i-cal"/></svg><div><h3>Calendar<em>Soon</em></h3><p>Booking times and reminders.</p></div></div>
+        <div class="tile"><svg class="i"><use href="#i-cal"/></svg><div><h3>Calendar</h3><p>Google and Apple, read only. Casper adds events you approve to Google.</p></div></div>
         <a class="tile ask" href="#contact"><svg class="i"><use href="#i-plus"/></svg><div><h3>Request a connection</h3><p>Use something else? Tell us and we will look at it.</p></div></a>
       </div>
     </div>
@@ -439,7 +452,7 @@
       panels.forEach(function (p) { p.hidden = p.id !== "panel-" + id; });
       if (week) week.hidden = id === "all";
       var ag = document.getElementById("agentgrid");
-      if (ag) { ag.classList.toggle("two", id !== "all" && id !== "marketing"); [].forEach.call(ag.querySelectorAll("[data-only]"), function (c) { c.hidden = c.getAttribute("data-only").split(" ").indexOf(id) < 0; }); [].forEach.call(ag.querySelectorAll("[data-hide]"), function (c) { c.hidden = c.getAttribute("data-hide") === id; }); }
+      if (ag) { ag.classList.toggle("two", id === "property"); [].forEach.call(ag.querySelectorAll("[data-only]"), function (c) { c.hidden = c.getAttribute("data-only").split(" ").indexOf(id) < 0; }); [].forEach.call(ag.querySelectorAll("[data-hide]"), function (c) { c.hidden = c.getAttribute("data-hide") === id; }); }
       if (push) { try { history.replaceState(null, "", id === "all" ? "#services" : "#agents-" + id); } catch (e) {} }
     }
     tabs.forEach(function (t, i) {
