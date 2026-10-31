@@ -196,6 +196,7 @@
   }
   .btn { white-space: nowrap; }
   html, body { overflow-x: hidden; }
+  @supports (overflow-x: clip) { html, body { overflow-x: clip; } } /* hidden on both breaks the sticky header */
   .burger { display: none; width: 44px; height: 44px; margin-left: 4px; border: 0; background: none; padding: 0; cursor: pointer; align-items: center; justify-content: center; border-radius: 10px; }
   .burger i, .burger i::before, .burger i::after { display: block; width: 20px; height: 2px; background: var(--obsidian); border-radius: 2px; position: relative; content: ""; transition: transform .2s, background .2s, top .2s; }
   .burger i::before { position: absolute; top: -6px; left: 0; }
@@ -335,7 +336,7 @@
         <span class="pill"><svg class="i"><use href="#i-send"/></svg>Outreach Wisp</span>
         <h3 class="var" data-fa="Finds people to recruit or meet." data-property="Finds agents to recruit and people for your talks." data-marketing="Finds the right KOLs.">Finds the right people.</h3>
         <ul class="feat"><li class="var" data-fa="Finds people to recruit or meet" data-property="Finds agents to recruit and people to invite to your talks" data-marketing="Searches for KOLs and creators who fit your brand">Finds people who fit</li><li class="var">Scores each one against your criteria</li><li class="var">Drafts the first message and the follow ups</li></ul>
-        <p class="price">$200 setup, then $50 a month per seat<small>Each seat covers about 150 people a month. Setup is built with you.</small></p>
+        <p class="price">$400 setup, then $50 a month per seat<small>Each seat covers about 150 people a month. Setup is built with you.</small></p>
         <details class="how"><summary>See the steps</summary>
         <div class="flow"><span>find</span><span>score based on your criteria</span><span>draft</span><span class="human">you approve</span><span>send and follow up</span><span class="result">results: replies and meetings</span><i class="loop-tag">learns from results</i></div>
         </details>
