@@ -38,7 +38,7 @@
 <header><div class="bar"><a href="/">Agent Casper</a><a class="back" href="/">Back to the site</a></div></header>
 <main>
   <h1>Privacy.</h1>
-  <p class="updated">Last updated 28 October 2026.</p>
+  <p class="updated">Last updated 1 November 2026.</p>
 
   <div class="short">
     <h2>The short version</h2>
@@ -97,12 +97,23 @@
     <li>You can turn calendar reading off under Outputs at any time. It starts on for people who allowed calendar access, and the app tells you once when it begins.</li>
   </ul>
 
+  <h3>What it looks up for you</h3>
+  <p>The proactive part is off until you ask for it. Tell the Telegram bot "be proactive" or "give me heads-ups" to turn it on, and "stop the heads-ups" to turn it off.</p>
+  <ul>
+    <li><strong>Web lookups.</strong> Once a day, Claude reads your next three weeks of calendar events (title, place, notes and who is invited), your notes and what Inbox Wisp has learned, and picks up to three things worth a quick web search, such as the entry rules for a trip or the opening hours of a venue. The search is a general question that anyone could type. The app refuses to send a search that contains a name it knows (yours, the people you chose, the people invited to your events), an address, an email or web address, a booking reference, a long number, an amount of money, or a word about health or family, or that is not written in plain Latin letters. This is a list of patterns, not a guarantee: it cannot catch every way of writing something private. A search can contain a general fact about you that the answer depends on, such as the kind of passport you hold.</li>
+    <li>The search words go to Exa. The pages it finds are sent to Claude, which writes one sentence. Only that sentence and the name of the website are kept.</li>
+    <li><strong>Asking the bot something on the web.</strong> If you ask the Telegram bot a question that needs the web, for example what you need to enter a country, it sends a general search to Exa, up to three per answer, under the same rules. This works whether or not the proactive setting is on, because you asked.</li>
+    <li><strong>What it learned today.</strong> Each evening Claude reads the short summaries and exact details Inbox Wisp already made from the day's messages, with who each was from and any due date (not the messages themselves, which are already deleted), and picks the few things that will still matter, such as a booking or a date. It skips repeats, dates that have passed and small talk. What it keeps is sent to you in Telegram.</li>
+    <li><strong>How your week fits together.</strong> Each Saturday Claude reads your next ten days of calendar events (title, time, place and number of guests), together with your notes and what Inbox Wisp has learned, and groups the events into a few threads, such as a trip or a wedding weekend. Overlaps are counted by the app, not guessed. The message is kept only in the message log, like your daily summary.</li>
+  </ul>
+
   <h3>What we keep</h3>
   <p>For 90 days unless you set a shorter time in Settings:</p>
   <ul>
     <li>The sender, the subject, the short summary, the steps, the reason, the due date and a score for each message.</li>
     <li>Your notes: one short page, written by Inbox Wisp, that holds the exact details above, grouped by topic and dated, so they are still there after the email text is gone.</li>
     <li>A short note about each person you chose, written from those summaries.</li>
+    <li>The one-sentence results of web lookups, for 14 days, and the things it learned from the day's messages, for 60 days or a week after the date they are about (at most 120 days). The text of a search is not kept in our logs: the app records only that a search was made and what it cost. If you turn web searches off, results already kept stop being shown and stay in what the wisp remembers until they expire or you use Delete everything. They are encrypted like your notes.</li>
     <li>Reminders you asked for in the Telegram chat: the text, the time, and whether it was sent.</li>
     <li>For someone new it judged: their name or address, its decision and a short reason.</li>
     <li>Suggestions it makes about how you work, such as making someone more important. Once a week it counts what you finished, answered, left waiting and rated for the people who write to you most, and the model sees only those counts and names, never a message. A suggestion changes nothing until you say yes, and your answer is kept.</li>
@@ -111,7 +122,8 @@
 
   <h3>Who else sees it</h3>
   <ul>
-    <li><strong>Anthropic</strong> (US). To read a message, the text of that message is sent to Anthropic's Claude through its API. The exact details and your notes are also sent to Claude when Inbox Wisp reads your next message or rewrites your notes. <a href="https://www.anthropic.com/legal/commercial-terms">Anthropic's commercial terms</a> say it does not train its models on data sent this way. If you add your own Anthropic key in Settings, the text goes to your own Anthropic account instead.</li>
+    <li><strong>Anthropic</strong> (US). To read a message, the text of that message is sent to Anthropic's Claude through its API. The exact details and your notes are also sent to Claude when Inbox Wisp reads your next message or rewrites your notes. Your calendar events, notes and the day's summaries are sent to Claude for the lookups, the evening learning and the week view, and so is the text of the web pages Exa finds. <a href="https://www.anthropic.com/legal/commercial-terms">Anthropic's commercial terms</a> say it does not train its models on data sent this way. If you add your own Anthropic key in Settings, the text goes to your own Anthropic account instead.</li>
+    <li><strong>Exa</strong> (US, a web search service). It receives the general search words described under What it looks up for you, and nothing else: no message text, no event details, no names. Exa's privacy policy says it uses the search queries it receives to improve its products and technology, including by training and fine-tuning models, and does not say how long it keeps them. This is why only general words are sent.</li>
     <li><strong>Supabase</strong> (Singapore) stores the records above. <strong>Railway</strong> (Singapore) runs the app. Both only process data for us.</li>
     <li><strong>Telegram</strong>, only if you connect it. It receives the summaries and lists described under Inbox Wisp and Telegram.</li>
     <li><strong>Google</strong>, because you are using your Google account.</li>
@@ -123,6 +135,8 @@
 
   <h3>Your control</h3>
   <ul>
+    <li><strong>Turn the proactive features off</strong> by telling the Telegram bot "stop the heads-ups". This stops the daily lookups, the evening learning and the week view.</li>
+    <li><strong>Turn web searches off</strong> by telling the Telegram bot "stop searching the web". This stops every search to Exa, both when you ask the bot a question and the daily lookups. Say "search the web again" to turn it back on.</li>
     <li><strong>Disconnect Google</strong> in Inbox Wisp (Connections, then Gmail). This revokes our access with Google and deletes the token we hold.</li>
     <li><strong>Disconnect Apple Calendar</strong> in Inbox Wisp (Connections, then Calendar). This deletes the app-specific password we hold. You can also delete the password at appleid.apple.com.</li>
     <li><strong>Delete everything it has kept</strong> in Settings (What I've read). This removes your summaries, steps, details, notes, what it learned from you, and suggestions.</li>
