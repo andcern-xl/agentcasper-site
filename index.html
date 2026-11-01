@@ -251,7 +251,7 @@
       <a href="/about">About Casper</a>
       <a href="/shop/">Shop</a>
     </nav>
-    <div class="right"><a class="btn primary sm" href="#contact">Delegate to Agent Casper</a><button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><i></i></button></div>
+    <div class="right"><a class="btn primary sm" href="https://calendly.com/agentcasper" target="_blank" rel="noopener">Book a time</a><button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><i></i></button></div>
   </div>
 </header>
 
@@ -359,7 +359,7 @@
       <div class="card callout" data-only="all" hidden>
         <span class="pill"><svg class="i"><use href="#i-spark"/></svg>Your Own Wisp</span>
         <h3>Customise your own wisp.</h3>
-        <a class="btn primary" href="#contact">Delegate to Agent Casper</a>
+        <a class="btn primary" href="https://calendly.com/agentcasper" target="_blank" rel="noopener">Book a time</a>
         <ul class="feat"><li>Built around one repeatable job from your day</li><li>Uses your criteria, your voice and your tools</li><li>Fills in the steps you repeat</li></ul>
       </div>
     </div>
@@ -409,16 +409,7 @@
     <div class="contact-card">
       <h2>Not sure where AI fits in your day?</h2>
       <p class="sub">Start with one job, and we will tell you if Casper can take it.</p>
-      <form id="contact-form" class="form" novalidate>
-        <label for="cf-email">Your email</label>
-        <input id="cf-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required>
-        <label for="cf-job">What eats your day? <span class="opt">Optional</span></label>
-        <textarea id="cf-job" name="message" rows="3" placeholder="For example: replying to the same questions, or chasing new leads"></textarea>
-        <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <p class="consent-line">By sending this you agree we may use your email to reply. <a href="/privacy">Privacy</a></p>
-        <button class="btn primary" type="submit">Send</button>
-        <p class="form-note" id="cf-note" role="status" aria-live="polite"></p>
-      </form>
+      <a class="btn primary" href="https://calendly.com/agentcasper" target="_blank" rel="noopener">Book a time</a>
       <p class="alt">Or email <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a></p>
     </div>
   </div>
@@ -470,43 +461,6 @@
     if (m) document.getElementById("services").scrollIntoView();
   })();
 </script>
-<script>
-  // Enquiries go to the Supabase function submit_enquiry (agent-engine project, migration 0013). It stores one lead on the agentcasper tenant.
-  // The key below is the public anon key: it can only call that function and cannot read any table. If ENQUIRY_URL is emptied, sending opens the visitor's email app instead.
-  var FORM_ENDPOINT = "https://kximauhhpfybrhomkjii.supabase.co/rest/v1/rpc/submit_enquiry";
-  var ENQUIRY_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4aW1hdWhocGZ5YnJob21ramlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3OTQxMjgsImV4cCI6MjEwNzM3MDEyOH0.hh6Ul60PRc5wX4IO9nTAX8AYrH1DoiSDQUKDErIMG4k";
-  var MAILTO = "delegate@agentcasper.work";
-  (function () {
-    var form = document.getElementById("contact-form");
-    var note = document.getElementById("cf-note");
-    if (!form) return;
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var email = form.email.value.trim();
-      var message = form.message.value.trim();
-      if (form.company.value) return; // spam trap
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        note.textContent = "Please enter a valid email so we can reply.";
-        form.email.focus();
-        return;
-      }
-      if (!FORM_ENDPOINT) {
-        var body = (message ? message + "\n\n" : "") + "Reply to: " + email;
-        window.location.href = "mailto:" + MAILTO + "?subject=" + encodeURIComponent("Agent Casper enquiry") + "&body=" + encodeURIComponent(body);
-        note.textContent = "Opening your email app. If nothing opens, write to " + MAILTO + ".";
-        return;
-      }
-      var btn = form.querySelector("button");
-      btn.disabled = true; note.textContent = "Sending...";
-      fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "apikey": ENQUIRY_KEY }, body: JSON.stringify({ p_email: email, p_message: message, p_company: form.company.value }) })
-        .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
-        .then(function (d) { if (!d || d.ok !== true) throw new Error(); form.reset(); note.textContent = "Thanks. We will reply by email."; })
-        .catch(function () { note.textContent = "That did not send. Please email " + MAILTO + " instead."; })
-        .then(function () { btn.disabled = false; });
-    });
-  })();
-</script>
-
 <script>
 (function () {
   var h = document.querySelector('header'), b = h && h.querySelector('.burger'), n = h && h.querySelector('nav.links');
