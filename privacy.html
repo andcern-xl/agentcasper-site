@@ -47,6 +47,7 @@
       <li>We use Google Analytics only if you accept it. If you say no, it never loads.</li>
       <li>If you use Inbox Wisp and connect Google, it reads mail only from the people you choose, and only to rank what needs you. We drop the email text as soon as it has been read.</li>
       <li>If you link WhatsApp, it only listens. It never sends a message, reads a group only if you choose it, and drops the text of a chat as soon as it has been read.</li>
+      <li>If you link your Telegram chats, it only reads the chats you choose and never sends a message from your account.</li>
       <li>When someone new writes to you, it reads their first message once to decide whether they belong, keeps only its decision and a short reason, and asks you when it is not sure.</li>
       <li>We do not sell your information, use it for ads, or let anyone read your messages.</li>
       <li>Ask us to see, fix or delete what we hold, any time: <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a>.</li>
@@ -125,13 +126,13 @@
     <li><strong>Anthropic</strong> (US). To read a message, the text of that message is sent to Anthropic's Claude through its API. The exact details and your notes are also sent to Claude when Inbox Wisp reads your next message or rewrites your notes. Your calendar events, notes and the day's summaries are sent to Claude for the lookups, the evening learning and the week view, and so is the text of the web pages Exa finds. <a href="https://www.anthropic.com/legal/commercial-terms">Anthropic's commercial terms</a> say it does not train its models on data sent this way. If you add your own Anthropic key in Settings, the text goes to your own Anthropic account instead.</li>
     <li><strong>Exa</strong> (US, a web search service). It receives the general search words described under What it looks up for you, and nothing else: no message text, no event details, no names. Exa's privacy policy says it uses the search queries it receives to improve its products and technology, including by training and fine-tuning models, and does not say how long it keeps them. This is why only general words are sent.</li>
     <li><strong>Supabase</strong> (Singapore) stores the records above. <strong>Railway</strong> (Singapore) runs the app. Both only process data for us.</li>
-    <li><strong>Telegram</strong>, only if you connect it. It receives the summaries and lists described under Inbox Wisp and Telegram.</li>
+    <li><strong>Telegram</strong>, only if you connect it. It receives the summaries and lists described under Inbox Wisp and Telegram, and sees a linked device if you link your chats.</li>
     <li><strong>Google</strong>, because you are using your Google account.</li>
     <li>We do not sell your data, share it with anyone else, use it for advertising, or use it to train any model. No screen or support tool at Agent Casper shows your messages.</li>
   </ul>
 
   <h3>How we protect it</h3>
-  <p>Your Google sign-in token, your Apple app-specific password and your saved WhatsApp login are stored encrypted. Your notes, what Inbox Wisp has learned about you, and the short note it keeps on each sender are also encrypted in our database, with a separate key for each account, so they cannot be read by browsing it. When our support tools open them, for example to help you with a problem, it is written down first with the reason, and you can see it in Settings under Plan and usage (Who has looked at your data). Message subjects and summaries are not encrypted this way yet. Each person's records can only be read by that person's own login. Connections use HTTPS. We never show your sign-in token or your own AI key back to you, or write them to logs.</p>
+  <p>Your Google sign-in token, your Apple app-specific password and your saved WhatsApp and Telegram logins are stored encrypted. Your notes, what Inbox Wisp has learned about you, and the short note it keeps on each sender are also encrypted in our database, with a separate key for each account, so they cannot be read by browsing it. When our support tools open them, for example to help you with a problem, it is written down first with the reason, and you can see it in Settings under Plan and usage (Who has looked at your data). Message subjects and summaries are not encrypted this way yet. Each person's records can only be read by that person's own login. Connections use HTTPS. We never show your sign-in token or your own AI key back to you, or write them to logs.</p>
 
   <h3>Your control</h3>
   <ul>
@@ -185,6 +186,27 @@
     <li>Delete everything removes what Inbox Wisp kept. It cannot remove messages that are already in your Telegram chat. Delete the chat in Telegram to remove them.</li>
     <li>You can stop it with the Disconnect button in Connections (Telegram) or by sending /stop to the bot.</li>
   </ul>
+
+  <h2>Inbox Wisp and your Telegram chats</h2>
+  <p>This is separate from the Telegram bot that sends you your summary. It is off until you link your Telegram account. You scan a code in Telegram (Settings, Devices, Link Desktop Device), the same way you would link Telegram Desktop, and Inbox Wisp stays signed in as a linked device.</p>
+
+  <h3>What it does with your chats</h3>
+  <ul>
+    <li>It only reads. It never sends a message, edits or deletes anything, or marks anything as read from your account.</li>
+    <li>It reads direct chats you choose, and groups only if you pick them. Anyone else who writes to you is counted by name and number of messages, and what they said is not read.</li>
+    <li>It never reads channels, bots, your Saved Messages, or Telegram's own notices (your login codes arrive there).</li>
+    <li>Before you choose anyone, it lists your chats from the last 90 days so you can pick who matters: the name, how many messages and when the last one was, for up to 150 people and 60 groups. Nothing is chosen for you.</li>
+    <li>When you choose a chat, it reads up to the last 20 messages from the past 90 days of that chat, once, for context. After that it reads new messages as they come.</li>
+    <li>The text of a message is read once, to write a short summary, a list of steps if it asks something of you, and a due date. The text is then deleted. Photos, voice notes and files are named (for example [Photo]) and are not opened.</li>
+    <li>If you answer a chat in Telegram, what it was waiting on is marked as handled. If your message holds a question, an offer or a promise, it is read once to keep one short note, and the text is dropped.</li>
+    <li>What we keep is the same as for mail: the chat's name, a short summary, steps, a due date and a reason, for 90 days unless you set a shorter time.</li>
+  </ul>
+
+  <h3>Your Telegram login</h3>
+  <p>To stay linked, we keep the login that Telegram gives a linked device. It is full access to your account, so it is stored encrypted and nothing in the app can show it back to you. If your Telegram account has a password (the second step), you type it once to link. It is used once and never kept. <strong>Disconnect</strong> in Connections (Telegram chats) signs the device out of Telegram and deletes the login. Delete everything in Settings does the same. You can also remove the device at any time from Settings, Devices in Telegram.</p>
+
+  <h3>Who else sees it</h3>
+  <p>Anthropic (US) receives the text of a message it reads, as described above. Telegram sees a linked device signed in to your account. Supabase and Railway (both Singapore) store the records and run the app.</p>
 
   <h2>Analytics and cookies</h2>
   <p>We would like to know which pages get read, so we can make the site better. For that we use Google Analytics, but only if you click Accept on the cookie notice. Until then, Google Analytics does not load and sets no cookies.</p>
