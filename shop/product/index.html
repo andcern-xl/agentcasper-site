@@ -90,13 +90,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
 <body>
-<header><div class="bar"><a class="brand" href="/"><svg class="ghost-logo" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1C6.5 1 2.5 5 2.5 10.5V26l3.2-2.6L9 26l3-2.6L15 26l3.3-2.6L21.5 26V10.5C21.5 5 17.5 1 12 1z" fill="currentColor"/><circle cx="8.8" cy="11" r="1.6" fill="#fff"/><circle cx="15.2" cy="11" r="1.6" fill="#fff"/></svg>Agent Casper</a><a class="back" href="/shop/">All products</a></div></header>
-<main>
-  <div id="product"><p class="empty">Loading.</p></div>
-  <dialog id="chart"><div id="chart-body"></div><button class="x" type="button" aria-label="Close">&times;</button></dialog>
-</main>
-<footer><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="#" data-cookie-settings>Cookie settings</a></footer>
-<script src="/consent.js"></script>
-<script src="/shop/shop.js?v=3"></script>
+<script>location.replace('/shop/' + location.search);</script>
+<p style="font-family:sans-serif;padding:24px"><a href="/shop/">Go to the shop</a></p>
 </body>
 </html>

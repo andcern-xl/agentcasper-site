@@ -55,7 +55,7 @@
     var g = $('#grid'); g.textContent = '';
     if (!list.length) { g.appendChild(el('p', 'empty', 'The catalog is on its way. Check back soon.')); return; }
     list.forEach(function (p) {
-      var a = el('a', 'tile'); a.href = '/shop/product/?p=' + encodeURIComponent(p.id);
+      var a = el('a', 'tile'); a.href = '/shop/?p=' + encodeURIComponent(p.id);
       var im = el('div', 'tile-img');
       if (p.images && p.images[0]) { var i = el('img'); i.src = p.images[0]; i.alt = p.name; i.loading = 'lazy'; im.appendChild(i); }
       a.appendChild(im); a.appendChild(el('h3', null, p.name)); a.appendChild(el('p', 'price', money(p.price, cur)));
@@ -66,9 +66,10 @@
   function renderProduct(list, cur, allSizes, chart, deliveryNote) {
     var root = $('#product'); root.textContent = '';
     var id = new URLSearchParams(location.search).get('p');
-    var p = list.filter(function (x) { return x.id === id; })[0];
+    var p = list.filter(function (x) { return x.id === id; })[0] || (id ? null : list[0]);
+    if (!list.length) { root.appendChild(el('p', 'empty', 'The catalog is on its way. Check back soon.')); return; }
     if (!p) { root.appendChild(el('p', 'empty', 'We could not find that product.')); var b = el('a', 'btn ghost', 'Back to the shop'); b.href = '/shop/'; root.appendChild(b); return; }
-    document.title = p.name + ' | Agent Casper Shop';
+    document.title = (list.length > 1 ? 'Shop' : p.name) + ' | Agent Casper';
     var sizes = p.sizes || allSizes, out = p.soldOut || [], chosen = null;
 
     var left = el('div', 'gallery'), main = el('div', 'main-img'), mi = el('img');
@@ -83,13 +84,30 @@
     }
 
     var right = el('div', 'info');
-    right.appendChild(el('h1', null, p.name));
+    /* One storefront: pick the shirt here, the page swaps to it without leaving /shop/ */
+    if (list.length > 1) {
+      right.appendChild(el('div', 'size-head')).appendChild(el('strong', null, 'Shirt'));
+      var picks = el('div', 'picks'); picks.setAttribute('role', 'radiogroup'); picks.setAttribute('aria-label', 'Shirt');
+      list.forEach(function (q) {
+        var b = el('button', 'pick' + (q === p ? ' on' : '')); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', q === p ? 'true' : 'false');
+        if (q.images && q.images[0]) { var qi = el('img'); qi.src = q.images[0]; qi.alt = ''; b.appendChild(qi); }
+        var t = el('span', null, q.short || q.name); t.appendChild(el('small', null, money(q.price, cur))); b.appendChild(t);
+        b.addEventListener('click', function () {
+          if (q === p) return;
+          history.replaceState(null, '', location.pathname + '?p=' + encodeURIComponent(q.id));
+          renderProduct(list, cur, allSizes, chart, deliveryNote);
+        });
+        picks.appendChild(b);
+      });
+      right.appendChild(picks);
+    }
+    right.appendChild(el('h2', 'pname', p.name));
     right.appendChild(el('p', 'price big', money(p.price, cur)));
     if (p.description) right.appendChild(describe(p.description));
 
     var head = el('div', 'size-head'); head.appendChild(el('strong', null, 'Size'));
-    var hasChart = chart && chart.rows && chart.rows.length;
-    if (hasChart) { var cb = el('button', 'link', 'Size chart'); cb.type = 'button'; cb.addEventListener('click', function () { openChart(chart); }); head.appendChild(cb); }
+    var pc = p.chart || (p.noChart ? null : chart), hasChart = pc && pc.rows && pc.rows.length;
+    if (hasChart) { var cb = el('button', 'link', 'Size chart'); cb.type = 'button'; cb.addEventListener('click', function () { openChart(pc); }); head.appendChild(cb); }
     right.appendChild(head);
     var row = el('div', 'sizes'); row.setAttribute('role', 'radiogroup'); row.setAttribute('aria-label', 'Size');
     var msg = el('p', 'note', 'Choose a size to continue.');

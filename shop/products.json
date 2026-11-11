@@ -28,6 +28,127 @@
         "M": "https://buy.stripe.com/aFa00k7y22qV8pW2CW3ks04",
         "L": "https://buy.stripe.com/3cIbJ28C6fdHcGc0uO3ks05",
         "XL": "https://buy.stripe.com/6oU5kEg4yc1vfSo91k3ks06"
+      },
+      "short": "Agent Casper Tee"
+    },
+    {
+      "id": "formerly-casper-jersey",
+      "name": "Formerly Casper Jersey",
+      "price": 30,
+      "description": "Black V-neck football jersey, printed in bone.\n\nPrint:\n- Front: misty forest floor, a glowing mushroom, snails, frogs, moths and cats\n- Back: the Formerly Casper logo, number 26, AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost behind the number",
+      "images": [
+        "/shop/images/fc-jersey-1.jpg",
+        "/shop/images/fc-jersey-2.jpg",
+        "/shop/images/fc-jersey-3.jpg"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL",
+        "6XL"
+      ],
+      "buy": {
+        "S": "https://buy.stripe.com/5kQ4gA9GaaXrfSo2CW3ks0h",
+        "M": "https://buy.stripe.com/7sY9AU2dIc1v49G3H03ks0i",
+        "L": "https://buy.stripe.com/00w7sM3hMd5z7lS6Tc3ks0j",
+        "XL": "https://buy.stripe.com/14A6oI8C6aXrfSogtM3ks0k",
+        "2XL": "https://buy.stripe.com/00wfZi7y2d5z8pW1yS3ks0l",
+        "3XL": "https://buy.stripe.com/14A00kbOic1vbC8cdw3ks0m",
+        "4XL": "https://buy.stripe.com/9B628s05A3uZ35Cb9s3ks0n",
+        "5XL": "https://buy.stripe.com/bJe28sdWq9Tn35C7Xg3ks0o",
+        "6XL": "https://buy.stripe.com/eVq5kEcSm7LfdKg1yS3ks0p"
+      },
+      "short": "Formerly Casper Jersey",
+      "chart": {
+        "title": "Size chart",
+        "note": "Measurements in cm, weight in kg. Unisex. Allow 2 to 4 cm either way.",
+        "columns": [
+          "Size",
+          "Weight",
+          "Length",
+          "Shoulder",
+          "Chest",
+          "Sleeve"
+        ],
+        "rows": [
+          [
+            "S",
+            "40-45",
+            "62",
+            "40",
+            "88",
+            "18"
+          ],
+          [
+            "M",
+            "45-52.5",
+            "64",
+            "42",
+            "92",
+            "19"
+          ],
+          [
+            "L",
+            "52.5-60",
+            "66",
+            "44",
+            "96",
+            "19"
+          ],
+          [
+            "XL",
+            "60-67.5",
+            "68",
+            "46",
+            "100",
+            "20"
+          ],
+          [
+            "2XL",
+            "67.5-77.5",
+            "70",
+            "48",
+            "106",
+            "20"
+          ],
+          [
+            "3XL",
+            "77.5-85",
+            "72",
+            "50",
+            "112",
+            "21"
+          ],
+          [
+            "4XL",
+            "85-92.5",
+            "74",
+            "52",
+            "118",
+            "21"
+          ],
+          [
+            "5XL",
+            "92.5-100",
+            "76",
+            "54",
+            "124",
+            "23"
+          ],
+          [
+            "6XL",
+            "100-110",
+            "78",
+            "56",
+            "130",
+            "23"
+          ]
+        ]
       }
     }
   ],

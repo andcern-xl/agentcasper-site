@@ -6,11 +6,11 @@
 <!-- noindex until the catalog is ready: delete this line to let search engines find the shop -->
 <meta name="robots" content="noindex">
 <title>Shop | Agent Casper</title>
-<meta name="description" content="The Agent Casper Tee, Genesis Collection. Black, boxy, 340 GSM heavyweight. $50 USD. A limited run.">
+<meta name="description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($30 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta property="og:site_name" content="Agent Casper">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Shop | Agent Casper">
-<meta property="og:description" content="The Agent Casper Tee, Genesis Collection. Black, boxy, 340 GSM heavyweight. $50 USD. A limited run.">
+<meta property="og:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($30 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta property="og:url" content="https://agentcasper.work/shop/">
 <meta property="og:image" content="https://agentcasper.work/shop/images/casper-tee-2.jpg">
 <meta property="og:image:width" content="1200">
@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="Back of the Agent Casper tee: an off-white glitch ghost on black, with the words AGENT CASPER and EST. 2026">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shop | Agent Casper">
-<meta name="twitter:description" content="The Agent Casper Tee, Genesis Collection. Black, boxy, 340 GSM heavyweight. $50 USD. A limited run.">
+<meta name="twitter:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($30 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta name="twitter:image" content="https://agentcasper.work/shop/images/casper-tee-2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +51,14 @@
   .thumbs button { width: 64px; height: 64px; border-radius: 10px; padding: 0; overflow: hidden; border: 2px solid transparent; background: none; cursor: pointer; }
   .thumbs button.on { border-color: var(--obsidian); }
   .thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .desc { color: #26262d; margin: 0 0 24px; white-space: pre-line; }
+  .desc { color: #26262d; margin: 0 0 28px; font-size: 15px; line-height: 1.6; }
+  .desc p, .desc ul { margin: 0 0 16px; }
+  .desc .desc-lead { font: 700 17px/1.45 var(--display); color: var(--obsidian); letter-spacing: -.01em; }
+  .desc .desc-label { font: 600 12px var(--ui); text-transform: uppercase; letter-spacing: .08em; color: var(--charcoal); margin: 22px 0 8px; }
+  .desc ul { padding-left: 18px; margin-top: 0; }
+  .desc li { margin-bottom: 4px; }
+  .desc .desc-closing { color: var(--obsidian); padding-top: 14px; border-top: 1px solid rgba(0,0,0,.08); margin-bottom: 0; }
+  .desc a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
   .size-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
   button.link { font: 500 14px var(--ui); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 3px; color: inherit; }
   .sizes { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
@@ -60,6 +67,7 @@
   .size.on { background: var(--obsidian); color: #fff; border-color: var(--obsidian); }
   .size.out { color: #b0b0bb; text-decoration: line-through; cursor: not-allowed; background: transparent; }
   .note { color: var(--charcoal); font-size: 14px; margin: 0 0 16px; }
+  .note.delivery { margin: 22px 0 0; padding-top: 16px; border-top: 1px solid rgba(0,0,0,.08); }
   .btn { display: inline-block; font: 500 16px var(--display); text-decoration: none; padding: 14px 32px; border-radius: 100px; border: 1px solid transparent; cursor: pointer; }
   .btn.primary { background: var(--obsidian); color: #fff; box-shadow: var(--shadow-btn); }
   .btn.primary:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; }
@@ -77,6 +85,14 @@
   footer a { color: inherit; }
   .brand { display: flex; align-items: center; gap: 9px; }
   .ghost-logo { width: 22px; height: 26px; color: var(--obsidian); }
+  .pname { font-size: clamp(26px, 4vw, 34px); letter-spacing: -.04em; line-height: 1.1; margin: 0 0 4px; }
+  .shop-title { margin-bottom: 28px; }
+  .picks { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin-bottom: 26px; }
+  .pick { display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 8px; border-radius: 14px; border: 1.5px solid var(--hairline); background: var(--paper); cursor: pointer; text-align: left; font: 600 14px/1.25 var(--display); color: inherit; transition: border-color .2s; }
+  .pick:hover { border-color: var(--obsidian); }
+  .pick.on { border-color: var(--obsidian); box-shadow: inset 0 0 0 1px var(--obsidian); }
+  .pick img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; flex: none; }
+  .pick small { display: block; font: 500 13px var(--ui); color: var(--charcoal); margin-top: 2px; }
 </style>
 <script src="/motion.js"></script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -84,12 +100,12 @@
 <body>
 <header><div class="bar"><a class="brand" href="/"><svg class="ghost-logo" viewBox="0 0 24 28" aria-hidden="true"><path d="M12 1C6.5 1 2.5 5 2.5 10.5V26l3.2-2.6L9 26l3-2.6L15 26l3.3-2.6L21.5 26V10.5C21.5 5 17.5 1 12 1z" fill="currentColor"/><circle cx="8.8" cy="11" r="1.6" fill="#fff"/><circle cx="15.2" cy="11" r="1.6" fill="#fff"/></svg>Agent Casper</a><a class="back" href="/">Back to the site</a></div></header>
 <main>
-  <h1>Shop.</h1>
-  <p class="lede">Pick a piece, pick your size.</p>
-  <div class="grid" id="grid"><p class="empty">Loading.</p></div>
+  <h1 class="shop-title">Shop.</h1>
+  <div id="product"><p class="empty">Loading.</p></div>
+  <dialog id="chart"><div id="chart-body"></div><button class="x" type="button" aria-label="Close">&times;</button></dialog>
 </main>
 <footer><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="#" data-cookie-settings>Cookie settings</a></footer>
 <script src="/consent.js"></script>
-<script src="/shop/shop.js?v=3"></script>
+<script src="/shop/shop.js?v=6"></script>
 </body>
 </html>
