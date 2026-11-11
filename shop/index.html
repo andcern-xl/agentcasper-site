@@ -6,11 +6,11 @@
 <!-- noindex until the catalog is ready: delete this line to let search engines find the shop -->
 <meta name="robots" content="noindex">
 <title>Shop | Agent Casper</title>
-<meta name="description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($29.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
+<meta name="description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($25.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta property="og:site_name" content="Agent Casper">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Shop | Agent Casper">
-<meta property="og:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($29.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
+<meta property="og:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($25.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta property="og:url" content="https://agentcasper.work/shop/">
 <meta property="og:image" content="https://agentcasper.work/shop/images/casper-tee-2.jpg">
 <meta property="og:image:width" content="1200">
@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="Back of the Agent Casper tee: an off-white glitch ghost on black, with the words AGENT CASPER and EST. 2026">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shop | Agent Casper">
-<meta name="twitter:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($29.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
+<meta name="twitter:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($25.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta name="twitter:image" content="https://agentcasper.work/shop/images/casper-tee-2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,6 +119,20 @@
   .buyrow .note { margin: 0; }
   .note.delivery { margin-top: 16px; padding-top: 12px; }
   .desc.after { margin: 18px 0 0; }
+  .main-img { position: relative; cursor: zoom-in; }
+  .main-img:focus-visible { outline: 2px solid var(--obsidian); outline-offset: 3px; }
+  .zoom-ico { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.88); color: var(--obsidian); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,.15); pointer-events: none; }
+  dialog#zoom { width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(7,7,9,.95); overflow: hidden; }
+  dialog#zoom::backdrop { background: rgba(7,7,9,.95); }
+  #zoom-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  #zoom-img { max-width: min(94vw, 1100px); max-height: 90vh; object-fit: contain; cursor: zoom-in; touch-action: none; user-select: none; -webkit-user-drag: none; transition: transform .2s ease; }
+  dialog#zoom.zoomed #zoom-img { transform: scale(2.5); transition: none; cursor: zoom-out; }
+  .zbtn { position: absolute; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: var(--obsidian); font: 500 22px/1 var(--ui); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; }
+  .zbtn[hidden] { display: none; }
+  #zoom-x { top: 16px; right: 16px; }
+  #zoom-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+  #zoom-next { right: 16px; top: 50%; transform: translateY(-50%); }
+  #zoom-count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; color: rgba(255,255,255,.8); font: 500 13px var(--ui); z-index: 2; pointer-events: none; }
 </style>
 <script src="/motion.js"></script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -128,10 +142,11 @@
 <main>
   <h1 class="shop-title">Shop.</h1>
   <div id="product"><p class="empty">Loading.</p></div>
+  <dialog id="zoom" aria-label="Photo zoom"><div id="zoom-stage"><img id="zoom-img" alt="" draggable="false"></div><button class="zbtn" id="zoom-prev" type="button" aria-label="Previous photo">&#8249;</button><button class="zbtn" id="zoom-next" type="button" aria-label="Next photo">&#8250;</button><button class="zbtn" id="zoom-x" type="button" aria-label="Close" autofocus>&times;</button><p id="zoom-count"></p></dialog>
   <dialog id="chart"><div id="chart-body"></div><button class="x" type="button" aria-label="Close">&times;</button></dialog>
 </main>
 <footer><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="#" data-cookie-settings>Cookie settings</a></footer>
 <script src="/consent.js"></script>
-<script src="/shop/shop.js?v=8"></script>
+<script src="/shop/shop.js?v=10"></script>
 </body>
 </html>

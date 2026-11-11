@@ -39,7 +39,7 @@
     {
       "id": "formerly-casper-jersey",
       "name": "Formerly Casper Jersey",
-      "price": 29.99,
+      "price": 25.99,
       "description": "Black V-neck football jersey, printed in bone. Best for raves and festivals.\n\nPrint:\n- Front: misty forest floor, a glowing mushroom, snails, frogs, moths and cats\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost behind the number",
       "images": [
         "/shop/images/fc-jersey-1.jpg",
@@ -58,15 +58,15 @@
         "6XL"
       ],
       "buy": {
-        "S": "https://buy.stripe.com/bJe3cw3hM6Hb8pWa5o3ks0q",
-        "M": "https://buy.stripe.com/dRm00k19E4z38pWcdw3ks0r",
-        "L": "https://buy.stripe.com/fZu3cw05Ac1v8pW4L43ks0s",
-        "XL": "https://buy.stripe.com/aFaeVe05Ad5z35Ca5o3ks0t",
-        "2XL": "https://buy.stripe.com/3cIdRa7y25D77lSgtM3ks0u",
-        "3XL": "https://buy.stripe.com/8x25kEcSm9Tn49Ga5o3ks0v",
-        "4XL": "https://buy.stripe.com/8x2dRa2dI0iNfSo5P83ks0w",
-        "5XL": "https://buy.stripe.com/8x200k6tY6Hbay4elE3ks0x",
-        "6XL": "https://buy.stripe.com/bJe28s5pU8Pj0XuelE3ks0y"
+        "S": "https://buy.stripe.com/28E5kEf0u2qV9u05P83ks0z",
+        "M": "https://buy.stripe.com/bJe9AUcSmaXr9u0a5o3ks0A",
+        "L": "https://buy.stripe.com/8x2aEY6tYe9DgWs2CW3ks0B",
+        "XL": "https://buy.stripe.com/cNi3cw6tYe9D0XuelE3ks0C",
+        "2XL": "https://buy.stripe.com/28E9AU6tY4z3cGc91k3ks0D",
+        "3XL": "https://buy.stripe.com/4gMfZi5pU3uZbC8fpI3ks0E",
+        "4XL": "https://buy.stripe.com/4gMfZidWq6HbfSo6Tc3ks0F",
+        "5XL": "https://buy.stripe.com/5kQ6oI9GafdHeOkgtM3ks0G",
+        "6XL": "https://buy.stripe.com/aFabJ219Ed5zeOk5P83ks0H"
       },
       "short": "Formerly Casper Jersey",
       "chart": {
@@ -154,11 +154,16 @@
             "23"
           ]
         ]
-      }
+      },
+      "zoom": [
+        "/shop/images/fc-jersey-1.jpg",
+        "/shop/images/fc-jersey-2-lg.jpg",
+        "/shop/images/fc-jersey-3-lg.jpg"
+      ]
     }
   ],
   "delivery": [
     "Self collection (Singapore)"
   ],
-  "deliveryNote": "Self collection in Singapore. Checkout also asks for an address in case it needs to be posted."
+  "deliveryNote": "Self collection in Singapore."
 }

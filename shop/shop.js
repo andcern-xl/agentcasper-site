@@ -74,12 +74,21 @@
 
     var left = el('div', 'gallery'), main = el('div', 'main-img'), mi = el('img');
     var imgs = p.images || [];
-    if (imgs[0]) { mi.src = imgs[0]; mi.alt = p.name; main.appendChild(mi); }
+    var cur = 0;
+    if (imgs[0]) {
+      mi.src = imgs[0]; mi.alt = p.name; main.appendChild(mi);
+      /* Click the photo to open it full screen and zoom into the details */
+      main.tabIndex = 0; main.setAttribute('role', 'button'); main.setAttribute('aria-label', 'Zoom into ' + p.name + ' photo');
+      var ico = el('span', 'zoom-ico'); ico.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+      main.appendChild(ico);
+      main.addEventListener('click', function () { openZoom(p, cur); });
+      main.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openZoom(p, cur); } });
+    }
     left.appendChild(main);
     if (imgs.length > 1) {
       var th = el('div', 'thumbs');
       imgs.forEach(function (u, n) { var t = el('button', n ? '' : 'on'); t.type = 'button'; t.setAttribute('aria-label', 'Photo ' + (n + 1)); var ti = el('img'); ti.src = u; ti.alt = ''; t.appendChild(ti);
-        t.addEventListener('click', function () { mi.src = u; [].forEach.call(th.children, function (c) { c.classList.remove('on'); }); t.classList.add('on'); }); th.appendChild(t); });
+        t.addEventListener('click', function () { mi.src = u; cur = n; [].forEach.call(th.children, function (c) { c.classList.remove('on'); }); t.classList.add('on'); }); th.appendChild(t); });
       left.appendChild(th);
     }
 
@@ -135,6 +144,57 @@
 
     var wrap = el('div', 'product-grid'); wrap.appendChild(left); wrap.appendChild(right); root.appendChild(wrap);
   }
+
+  /* Zoom view: full screen, click or tap to magnify 2.5x at that point, move (or drag) to look around.
+     p.zoom holds optional larger files, same order as p.images. */
+  var Z = { list: [], i: 0, on: false, down: false, moved: 0 };
+  function zoomShow() {
+    var d = $('#zoom'), im = $('#zoom-img');
+    d.classList.remove('zoomed'); Z.on = false;
+    im.src = Z.list[Z.i]; Z.ox = Z.oy = 50; im.style.transformOrigin = '50% 50%';
+    $('#zoom-prev').hidden = $('#zoom-next').hidden = Z.list.length < 2;
+    $('#zoom-count').textContent = Z.list.length > 1 ? (Z.i + 1) + ' / ' + Z.list.length : '';
+  }
+  function openZoom(p, i) {
+    var d = $('#zoom'); if (!d) return;
+    var imgs = p.images || [], big = p.zoom || [];
+    Z.list = imgs.map(function (u, n) { return big[n] || u; }); Z.i = i || 0;
+    $('#zoom-img').alt = p.name;
+    zoomShow();
+    if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+  }
+  function zoomStep(k) { if (Z.list.length < 2) return; Z.i = (Z.i + k + Z.list.length) % Z.list.length; zoomShow(); }
+  (function () {
+    var d = $('#zoom'); if (!d) return;
+    var im = $('#zoom-img');
+    var SCALE = 2.5, stage = $('#zoom-stage');
+    function clamp(v) { return Math.min(100, Math.max(0, v)); }
+    /* Position in the UNscaled image: the scaled box would only move the view part of the way */
+    function box() { var w = im.offsetWidth, h = im.offsetHeight; return { l: (stage.clientWidth - w) / 2, t: (stage.clientHeight - h) / 2, w: w, h: h }; }
+    function setOrigin(x, y) { Z.ox = clamp(x); Z.oy = clamp(y); im.style.transformOrigin = Z.ox + '% ' + Z.oy + '%'; }
+    function aim(e) { var b = box(); setOrigin((e.clientX - b.l) / b.w * 100, (e.clientY - b.t) / b.h * 100); }
+    /* Touch: the picture follows the finger, like a photo app */
+    function drag(e) { var b = box(); setOrigin(Z.sx - (e.clientX - Z.x) / b.w * 100 / (SCALE - 1), Z.sy - (e.clientY - Z.y) / b.h * 100 / (SCALE - 1)); }
+    im.addEventListener('pointerdown', function (e) { Z.down = true; Z.moved = 0; Z.x = e.clientX; Z.y = e.clientY; Z.sx = Z.ox == null ? 50 : Z.ox; Z.sy = Z.oy == null ? 50 : Z.oy; });
+    im.addEventListener('pointermove', function (e) {
+      if (Z.down) Z.moved = Math.max(Z.moved, Math.abs(e.clientX - Z.x) + Math.abs(e.clientY - Z.y));
+      if (!Z.on) return;
+      if (e.pointerType === 'mouse') aim(e); else if (Z.down) drag(e);
+    });
+    im.addEventListener('pointerup', function (e) {
+      Z.down = false;
+      if (Z.moved > 8) return;                      /* a drag looks around, it does not toggle */
+      if (!Z.on) aim(e);
+      Z.on = !Z.on; d.classList.toggle('zoomed', Z.on);   /* zooming out keeps the same point, so it shrinks in place */
+    });
+    im.addEventListener('pointercancel', function () { Z.down = false; });
+    window.addEventListener('pointerup', function () { Z.down = false; });   /* released outside the picture */
+    $('#zoom-prev').addEventListener('click', function () { zoomStep(-1); });
+    $('#zoom-next').addEventListener('click', function () { zoomStep(1); });
+    $('#zoom-x').addEventListener('click', function () { d.close(); });
+    d.addEventListener('click', function (e) { if (e.target === d || e.target.id === 'zoom-stage') d.close(); });
+    d.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft') zoomStep(-1); if (e.key === 'ArrowRight') zoomStep(1); });
+  })();
 
   function openChart(c) {
     var d = $('#chart'); if (!d) return; var box = $('#chart-body'); box.textContent = '';
