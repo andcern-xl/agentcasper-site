@@ -74,21 +74,21 @@
 
     var left = el('div', 'gallery'), main = el('div', 'main-img'), mi = el('img');
     var imgs = p.images || [];
-    var cur = 0;
+    var pic = 0;   /* which photo is showing (not `cur`: that is the currency) */
     if (imgs[0]) {
       mi.src = imgs[0]; mi.alt = p.name; main.appendChild(mi);
       /* Click the photo to open it full screen and zoom into the details */
       main.tabIndex = 0; main.setAttribute('role', 'button'); main.setAttribute('aria-label', 'Zoom into ' + p.name + ' photo');
       var ico = el('span', 'zoom-ico'); ico.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
       main.appendChild(ico);
-      main.addEventListener('click', function () { openZoom(p, cur); });
-      main.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openZoom(p, cur); } });
+      main.addEventListener('click', function () { openZoom(p, pic); });
+      main.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openZoom(p, pic); } });
     }
     left.appendChild(main);
     if (imgs.length > 1) {
       var th = el('div', 'thumbs');
       imgs.forEach(function (u, n) { var t = el('button', n ? '' : 'on'); t.type = 'button'; t.setAttribute('aria-label', 'Photo ' + (n + 1)); var ti = el('img'); ti.src = u; ti.alt = ''; t.appendChild(ti);
-        t.addEventListener('click', function () { mi.src = u; cur = n; [].forEach.call(th.children, function (c) { c.classList.remove('on'); }); t.classList.add('on'); }); th.appendChild(t); });
+        t.addEventListener('click', function () { mi.src = u; pic = n; [].forEach.call(th.children, function (c) { c.classList.remove('on'); }); t.classList.add('on'); }); th.appendChild(t); });
       left.appendChild(th);
     }
 
