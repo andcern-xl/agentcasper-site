@@ -1,5 +1,10 @@
 {
   "currency": "USD",
+  "shipping": {
+    "countries": [
+      "SG"
+    ]
+  },
   "sizes": [
     "S",
     "M",
@@ -155,5 +160,5 @@
   "delivery": [
     "Self collection (Singapore)"
   ],
-  "deliveryNote": "Self collection in Singapore. No shipping."
+  "deliveryNote": "Self collection in Singapore. Checkout also asks for an address in case it needs to be posted."
 }
