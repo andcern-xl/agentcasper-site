@@ -34,7 +34,8 @@
         "L": "https://buy.stripe.com/3cIbJ28C6fdHcGc0uO3ks05",
         "XL": "https://buy.stripe.com/6oU5kEg4yc1vfSo91k3ks06"
       },
-      "short": "Agent Casper Tee"
+      "short": "Agent Casper Tee",
+      "soldOut": true
     },
     {
       "id": "formerly-casper-jersey",

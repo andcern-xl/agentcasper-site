@@ -66,11 +66,13 @@
   function renderProduct(list, cur, allSizes, chart, deliveryNote) {
     var root = $('#product'); root.textContent = '';
     var id = new URLSearchParams(location.search).get('p');
-    var p = list.filter(function (x) { return x.id === id; })[0] || (id ? null : list[0]);
+    /* soldOut: true = the whole product is sold out; an array = only those sizes. /shop/ opens on the first product still for sale */
+    var p = list.filter(function (x) { return x.id === id; })[0] || (id ? null : (list.filter(function (x) { return x.soldOut !== true; })[0] || list[0]));
     if (!list.length) { root.appendChild(el('p', 'empty', 'The catalog is on its way. Check back soon.')); return; }
     if (!p) { root.appendChild(el('p', 'empty', 'We could not find that product.')); var b = el('a', 'btn ghost', 'Back to the shop'); b.href = '/shop/'; root.appendChild(b); return; }
     document.title = (list.length > 1 ? 'Shop' : p.name) + ' | Agent Casper';
-    var sizes = p.sizes || allSizes, out = p.soldOut || [], chosen = null;
+    var gone = p.soldOut === true;
+    var sizes = p.sizes || allSizes, out = gone ? sizes.slice() : (Array.isArray(p.soldOut) ? p.soldOut : []), chosen = null;
 
     var left = el('div', 'gallery'), main = el('div', 'main-img'), mi = el('img');
     var imgs = p.images || [];
@@ -100,7 +102,7 @@
       list.forEach(function (q) {
         var b = el('button', 'pick' + (q === p ? ' on' : '')); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', q === p ? 'true' : 'false');
         if (q.images && q.images[0]) { var qi = el('img'); qi.src = q.images[0]; qi.alt = ''; b.appendChild(qi); }
-        var t = el('span', null, q.short || q.name); t.appendChild(el('small', null, money(q.price, cur))); b.appendChild(t);
+        var t = el('span', null, q.short || q.name); t.appendChild(el('small', null, q.soldOut === true ? 'Sold out' : money(q.price, cur))); b.appendChild(t);
         b.addEventListener('click', function () {
           if (q === p) return;
           history.replaceState(null, '', location.pathname + '?p=' + encodeURIComponent(q.id));
@@ -132,6 +134,7 @@
     });
     right.appendChild(row);
     if (!p.buy) buy.textContent = 'Not available yet';
+    if (gone) { buy.textContent = 'Sold out'; buy.disabled = true; msg.textContent = ''; }
     buy.addEventListener('click', function () {
       var u = chosen && linkFor(p, chosen); if (!u) return;
       /* Stripe Payment Link; the product and size also travel as client_reference_id (letters, numbers, - and _ only) */
