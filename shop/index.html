@@ -6,11 +6,11 @@
 <!-- noindex until the catalog is ready: delete this line to let search engines find the shop -->
 <meta name="robots" content="noindex">
 <title>Shop | Agent Casper</title>
-<meta name="description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($30 USD). Pick a shirt, pick your size. Self collection in Singapore.">
+<meta name="description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($29.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta property="og:site_name" content="Agent Casper">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Shop | Agent Casper">
-<meta property="og:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($30 USD). Pick a shirt, pick your size. Self collection in Singapore.">
+<meta property="og:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($29.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta property="og:url" content="https://agentcasper.work/shop/">
 <meta property="og:image" content="https://agentcasper.work/shop/images/casper-tee-2.jpg">
 <meta property="og:image:width" content="1200">
@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="Back of the Agent Casper tee: an off-white glitch ghost on black, with the words AGENT CASPER and EST. 2026">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shop | Agent Casper">
-<meta name="twitter:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($30 USD). Pick a shirt, pick your size. Self collection in Singapore.">
+<meta name="twitter:description" content="Agent Casper Tee ($50 USD) and Formerly Casper Jersey ($29.99 USD). Pick a shirt, pick your size. Self collection in Singapore.">
 <meta name="twitter:image" content="https://agentcasper.work/shop/images/casper-tee-2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,6 +93,32 @@
   .pick.on { border-color: var(--obsidian); box-shadow: inset 0 0 0 1px var(--obsidian); }
   .pick img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; flex: none; }
   .pick small { display: block; font: 500 13px var(--ui); color: var(--charcoal); margin-top: 2px; }
+  /* Compact store layout (12 Nov 2026): shirt, size and Buy fit on a laptop screen without scrolling */
+  @media (min-width: 801px) {
+    main { padding-top: 28px; }
+    .shop-title { font-size: 36px; margin-bottom: 18px; }
+    .product-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; }
+    .gallery { position: sticky; top: 84px; }
+    .main-img { width: min(100%, calc(100vh - 200px)); }
+    html, body { overflow-x: clip; }   /* clip, not hidden: hidden turns body into a scroll box and stops the sticky gallery */
+  }
+  .picks { gap: 8px; margin-bottom: 18px; }
+  .pick { padding: 6px 10px 6px 6px; }
+  .pick img { width: 36px; height: 36px; }
+  .pname { font-size: clamp(24px, 3vw, 30px); }
+  .price.big { font-size: 19px; margin: 2px 0 10px; }
+  .desc { margin-bottom: 16px; font-size: 14.5px; line-height: 1.55; }
+  .desc p, .desc ul { margin-bottom: 10px; }
+  .desc .desc-lead { font-size: 16px; }
+  .desc .desc-label { margin: 12px 0 4px; }
+  .desc li { margin-bottom: 2px; }
+  .size-head { margin-bottom: 8px; }
+  .sizes { gap: 8px; margin-bottom: 14px; }
+  .size { min-width: 48px; padding: 10px 9px; font-size: 14px; border-radius: 10px; }
+  .buyrow { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .buyrow .note { margin: 0; }
+  .note.delivery { margin-top: 16px; padding-top: 12px; }
+  .desc.after { margin: 18px 0 0; }
 </style>
 <script src="/motion.js"></script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -106,6 +132,6 @@
 </main>
 <footer><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="#" data-cookie-settings>Cookie settings</a></footer>
 <script src="/consent.js"></script>
-<script src="/shop/shop.js?v=6"></script>
+<script src="/shop/shop.js?v=8"></script>
 </body>
 </html>

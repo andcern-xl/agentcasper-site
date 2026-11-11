@@ -39,8 +39,8 @@
     {
       "id": "formerly-casper-jersey",
       "name": "Formerly Casper Jersey",
-      "price": 30,
-      "description": "Black V-neck football jersey, printed in bone.\n\nPrint:\n- Front: misty forest floor, a glowing mushroom, snails, frogs, moths and cats\n- Back: the Formerly Casper logo, number 26, AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost behind the number",
+      "price": 29.99,
+      "description": "Black V-neck football jersey, printed in bone. Best for raves and festivals.\n\nPrint:\n- Front: misty forest floor, a glowing mushroom, snails, frogs, moths and cats\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost behind the number",
       "images": [
         "/shop/images/fc-jersey-1.jpg",
         "/shop/images/fc-jersey-2.jpg",
@@ -58,15 +58,15 @@
         "6XL"
       ],
       "buy": {
-        "S": "https://buy.stripe.com/5kQ4gA9GaaXrfSo2CW3ks0h",
-        "M": "https://buy.stripe.com/7sY9AU2dIc1v49G3H03ks0i",
-        "L": "https://buy.stripe.com/00w7sM3hMd5z7lS6Tc3ks0j",
-        "XL": "https://buy.stripe.com/14A6oI8C6aXrfSogtM3ks0k",
-        "2XL": "https://buy.stripe.com/00wfZi7y2d5z8pW1yS3ks0l",
-        "3XL": "https://buy.stripe.com/14A00kbOic1vbC8cdw3ks0m",
-        "4XL": "https://buy.stripe.com/9B628s05A3uZ35Cb9s3ks0n",
-        "5XL": "https://buy.stripe.com/bJe28sdWq9Tn35C7Xg3ks0o",
-        "6XL": "https://buy.stripe.com/eVq5kEcSm7LfdKg1yS3ks0p"
+        "S": "https://buy.stripe.com/bJe3cw3hM6Hb8pWa5o3ks0q",
+        "M": "https://buy.stripe.com/dRm00k19E4z38pWcdw3ks0r",
+        "L": "https://buy.stripe.com/fZu3cw05Ac1v8pW4L43ks0s",
+        "XL": "https://buy.stripe.com/aFaeVe05Ad5z35Ca5o3ks0t",
+        "2XL": "https://buy.stripe.com/3cIdRa7y25D77lSgtM3ks0u",
+        "3XL": "https://buy.stripe.com/8x25kEcSm9Tn49Ga5o3ks0v",
+        "4XL": "https://buy.stripe.com/8x2dRa2dI0iNfSo5P83ks0w",
+        "5XL": "https://buy.stripe.com/8x200k6tY6Hbay4elE3ks0x",
+        "6XL": "https://buy.stripe.com/bJe28s5pU8Pj0XuelE3ks0y"
       },
       "short": "Formerly Casper Jersey",
       "chart": {

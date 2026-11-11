@@ -103,7 +103,6 @@
     }
     right.appendChild(el('h2', 'pname', p.name));
     right.appendChild(el('p', 'price big', money(p.price, cur)));
-    if (p.description) right.appendChild(describe(p.description));
 
     var head = el('div', 'size-head'); head.appendChild(el('strong', null, 'Size'));
     var pc = p.chart || (p.noChart ? null : chart), hasChart = pc && pc.rows && pc.rows.length;
@@ -129,8 +128,10 @@
       /* Stripe Payment Link; the product and size also travel as client_reference_id (letters, numbers, - and _ only) */
       location.href = u + (u.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(safeId(p.id) + '_' + safeId(chosen));
     });
-    right.appendChild(msg); right.appendChild(buy);
+    var br = el('div', 'buyrow'); br.appendChild(buy); br.appendChild(msg); right.appendChild(br);
     if (deliveryNote) right.appendChild(el('p', 'note delivery', deliveryNote));
+    /* Description after Buy, so shirt, size and Buy stay on screen (standard shop order) */
+    if (p.description) { var dsc = describe(p.description); dsc.classList.add('after'); right.appendChild(dsc); }
 
     var wrap = el('div', 'product-grid'); wrap.appendChild(left); wrap.appendChild(right); root.appendChild(wrap);
   }
