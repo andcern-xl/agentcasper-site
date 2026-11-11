@@ -38,7 +38,7 @@
 <header><div class="bar"><a href="/">Agent Casper</a><a class="back" href="/">Back to the site</a></div></header>
 <main>
   <h1>Privacy.</h1>
-  <p class="updated">Last updated 3 November 2026.</p>
+  <p class="updated">Last updated 12 November 2026.</p>
 
   <div class="short">
     <h2>The short version</h2>
@@ -50,13 +50,14 @@
       <li>If you link your Telegram chats, it only reads the chats you choose and never sends a message from your account.</li>
       <li>Each evening it reads what you typed to the Telegram bot, to keep the few things worth remembering. It tells nobody, and you can read and delete them in your notes.</li>
       <li>When someone new writes to you, it reads their first message once to decide whether they belong, keeps only its decision and a short reason, and asks you when it is not sure.</li>
+      <li>If you use Restock Wisp, it keeps the pages you track and your Telegram chat with its bot, checks those public pages from our server, and never buys anything.</li>
       <li>We do not sell your information, use it for ads, or let anyone read your messages.</li>
       <li>Ask us to see, fix or delete what we hold, any time: <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a>.</li>
     </ul>
   </div>
 
   <h2>Who we are</h2>
-  <p>Agent Casper runs this website and Inbox Wisp, a personal inbox assistant. If you have a question about your information, write to <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a>.</p>
+  <p>Agent Casper runs this website, Inbox Wisp (a personal inbox assistant) and Restock Wisp (restock alerts on Telegram). If you have a question about your information, write to <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a>.</p>
 
   <h2>Booking a time with us</h2>
   <p>The "Book a time" buttons on this site open our Calendly page, which is run by Calendly, not by us. Calendly asks for your name, your email and anything else you choose to type, and tells us what you booked. We use it to meet you and to follow up on that conversation, and for nothing else. How Calendly handles it is covered in <a href="https://calendly.com/privacy">Calendly's privacy notice</a>. You do not have to book anything to read the site.</p>
@@ -215,6 +216,35 @@
   <h3>Who else sees it</h3>
   <p>Anthropic (US) receives the text of a message it reads, as described above. Telegram sees a linked device signed in to your account. Supabase and Railway (both Singapore) store the records and run the app.</p>
 
+  <h2>Restock Wisp</h2>
+  <p>This part applies if you use Restock Wisp (restock.agentcasper.work). It tells you on Telegram when a shop page you track comes back in stock, sells out or drops to your price.</p>
+
+  <h3>What we keep</h3>
+  <ul>
+    <li>Your email and name, to sign you in and to match your payment.</li>
+    <li>The pages you track: the link, the name you gave it, what to tell you about (back in stock, sold out or a price line), and what we last saw on the page (the product name, price, whether it was in stock, and an add-to-cart link when the shop has one).</li>
+    <li>When each page was last checked and changed, how many alerts it has sent, and the last error if a page could not be read.</li>
+    <li>Your Telegram chat with the Restock bot, so alerts reach you. Connecting uses a one-time code that works for 15 minutes; we keep only a scrambled copy of it.</li>
+  </ul>
+
+  <h3>What it does</h3>
+  <ul>
+    <li>Our server opens the pages you track, on a schedule, as a visitor would. The shop sees a request from our server, not from you, and it never logs in to any shop account.</li>
+    <li>It only reads public pages. It never adds to a cart, buys or pays for anything.</li>
+    <li>When something changes, it sends a message to your own Telegram chat with the product name, the price, the shop and links to the page. Telegram runs that chat, and Telegram chats are not end-to-end encrypted.</li>
+    <li>Every morning it also reads the public product lists of a few Singapore shops, and US market prices from TCGplayer (through tcgcsv.com), to show prices side by side in Sources. That is shop data, not yours.</li>
+    <li>Restock Wisp does not send your pages or anything else to an AI model.</li>
+  </ul>
+
+  <h3>Payment</h3>
+  <p>Stripe takes the payment. We keep your email and whether your subscription is live, so we know you can use Restock Wisp. We never see or keep your card details.</p>
+
+  <h3>Removing it</h3>
+  <p>Remove on a tracked page, or /untrack in the bot, deletes that page and what we saw on it. Disconnect in Settings, or /stop in the bot, removes your chat. To delete your account and everything with it, write to <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a>.</p>
+
+  <h3>Who else sees it</h3>
+  <p>Telegram delivers your alerts. Stripe handles payment. Supabase and Railway (both Singapore) store the records and run the app. The shops see our server visiting the pages you track.</p>
+
   <h2>Analytics and cookies</h2>
   <p>We would like to know which pages get read, so we can make the site better. For that we use Google Analytics, but only if you click Accept on the cookie notice. Until then, Google Analytics does not load and sets no cookies.</p>
   <p>If you accept, Google Analytics sets cookies in your browser and records things like the pages you visit, your device and browser, and your approximate location. Google processes this information for us. We use it to see overall patterns, not to identify you.</p>
@@ -224,7 +254,7 @@
   <p>This site loads its fonts from Google Fonts, so your browser contacts Google to fetch them whenever you open a page. This happens whether or not you accept analytics.</p>
 
   <h2>How long we keep things</h2>
-  <p>We keep a booking or an enquiry for as long as it takes to reply and follow up. If you ask us to delete it, we will. Inbox Wisp records are kept for 90 days by default, as described above. A WhatsApp message waiting to be read is kept for up to 30 minutes.</p>
+  <p>We keep a booking or an enquiry for as long as it takes to reply and follow up. If you ask us to delete it, we will. Inbox Wisp records are kept for 90 days by default, as described above. A WhatsApp message waiting to be read is kept for up to 30 minutes. Restock Wisp keeps a tracked page until you remove it or delete your account.</p>
 
   <h2>Your choices</h2>
   <p>You can ask us to show you what we hold about you, correct it, delete it, or stop using it. Write to <a href="mailto:delegate@agentcasper.work">delegate@agentcasper.work</a> from the email address you used, and we will get back to you as soon as we can.</p>
