@@ -41,6 +41,9 @@
     return box;
   }
   function safeId(s) { return String(s).replace(/[^A-Za-z0-9_-]/g, ''); }
+  /* p.variants: colours of one product on the same page, [{id, label, images, buy, description?, soldOut?, zoom?}].
+     The first variant is the default; ?v=<id> picks another. */
+  function imagesOf(q) { return (q.variants && q.variants[0] && q.variants[0].images) || q.images || []; }
 
   Promise.all([get('/shop/products.json'), get('/shop/size-chart.json').catch(function () { return null; })]).then(function (d) {
     var cat = d[0], chart = d[1], cur = cat.currency || 'USD', sizes = cat.sizes || ['S', 'M', 'L', 'XL', 'XXL'];
@@ -57,7 +60,7 @@
     list.forEach(function (p) {
       var a = el('a', 'tile'); a.href = '/shop/?p=' + encodeURIComponent(p.id);
       var im = el('div', 'tile-img');
-      if (p.images && p.images[0]) { var i = el('img'); i.src = p.images[0]; i.alt = p.name; i.loading = 'lazy'; im.appendChild(i); }
+      if (imagesOf(p)[0]) { var i = el('img'); i.src = imagesOf(p)[0]; i.alt = p.name; i.loading = 'lazy'; im.appendChild(i); }
       a.appendChild(im); a.appendChild(el('h3', null, p.name)); a.appendChild(el('p', 'price', money(p.price, cur)));
       g.appendChild(a);
     });
@@ -67,8 +70,15 @@
     var root = $('#product'); root.textContent = '';
     var id = new URLSearchParams(location.search).get('p');
     /* soldOut: true = the whole product is sold out; an array = only those sizes. /shop/ opens on the first product still for sale */
-    var p = list.filter(function (x) { return x.id === id; })[0] || (id ? null : (list.filter(function (x) { return x.soldOut !== true; })[0] || list[0]));
+    var base = list.filter(function (x) { return x.id === id; })[0] || (id ? null : (list.filter(function (x) { return x.soldOut !== true; })[0] || list[0]));
     if (!list.length) { root.appendChild(el('p', 'empty', 'The catalog is on its way. Check back soon.')); return; }
+    var p = base, variant = null;
+    if (base && base.variants && base.variants.length) {
+      var vid = new URLSearchParams(location.search).get('v');
+      variant = base.variants.filter(function (v) { return v.id === vid; })[0] || base.variants[0];
+      p = Object.assign({}, base, { images: variant.images || base.images, buy: variant.buy, zoom: variant.zoom,
+        description: variant.description || base.description, soldOut: variant.soldOut != null ? variant.soldOut : base.soldOut });
+    }
     if (!p) { root.appendChild(el('p', 'empty', 'We could not find that product.')); var b = el('a', 'btn ghost', 'Back to the shop'); b.href = '/shop/'; root.appendChild(b); return; }
     document.title = (list.length > 1 ? 'Shop' : p.name) + ' | Agent Casper';
     var gone = p.soldOut === true;
@@ -100,11 +110,11 @@
       right.appendChild(el('div', 'size-head')).appendChild(el('strong', null, 'Shirt'));
       var picks = el('div', 'picks'); picks.setAttribute('role', 'radiogroup'); picks.setAttribute('aria-label', 'Shirt');
       list.forEach(function (q) {
-        var b = el('button', 'pick' + (q === p ? ' on' : '')); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', q === p ? 'true' : 'false');
-        if (q.images && q.images[0]) { var qi = el('img'); qi.src = q.images[0]; qi.alt = ''; b.appendChild(qi); }
+        var b = el('button', 'pick' + (q === base ? ' on' : '')); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', q === base ? 'true' : 'false');
+        if (imagesOf(q)[0]) { var qi = el('img'); qi.src = imagesOf(q)[0]; qi.alt = ''; b.appendChild(qi); }
         var t = el('span', null, q.short || q.name); t.appendChild(el('small', null, q.soldOut === true ? 'Sold out' : money(q.price, cur))); b.appendChild(t);
         b.addEventListener('click', function () {
-          if (q === p) return;
+          if (q === base) return;
           history.replaceState(null, '', location.pathname + '?p=' + encodeURIComponent(q.id));
           renderProduct(list, cur, allSizes, chart, deliveryNote);
         });
@@ -114,6 +124,23 @@
     }
     right.appendChild(el('h2', 'pname', p.name));
     right.appendChild(el('p', 'price big', money(p.price, cur)));
+    /* Colour: the product's variants, same page, swaps photos, links and print description */
+    if (variant && base.variants.length > 1) {
+      right.appendChild(el('div', 'size-head')).appendChild(el('strong', null, 'Colour'));
+      var vp = el('div', 'picks'); vp.setAttribute('role', 'radiogroup'); vp.setAttribute('aria-label', 'Colour');
+      base.variants.forEach(function (v) {
+        var on = v === variant, b = el('button', 'pick' + (on ? ' on' : '')); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
+        if (v.images && v.images[0]) { var vi = el('img'); vi.src = v.images[0]; vi.alt = ''; b.appendChild(vi); }
+        var t = el('span', null, v.label || v.id); if (v.soldOut === true) t.appendChild(el('small', null, 'Sold out')); b.appendChild(t);
+        b.addEventListener('click', function () {
+          if (on) return;
+          history.replaceState(null, '', location.pathname + '?p=' + encodeURIComponent(base.id) + '&v=' + encodeURIComponent(v.id));
+          renderProduct(list, cur, allSizes, chart, deliveryNote);
+        });
+        vp.appendChild(b);
+      });
+      right.appendChild(vp);
+    }
 
     var head = el('div', 'size-head'); head.appendChild(el('strong', null, 'Size'));
     var pc = p.chart || (p.noChart ? null : chart), hasChart = pc && pc.rows && pc.rows.length;
@@ -138,7 +165,7 @@
     buy.addEventListener('click', function () {
       var u = chosen && linkFor(p, chosen); if (!u) return;
       /* Stripe Payment Link; the product and size also travel as client_reference_id (letters, numbers, - and _ only) */
-      location.href = u + (u.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(safeId(p.id) + '_' + safeId(chosen));
+      location.href = u + (u.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(safeId(base.id) + (variant ? '_' + safeId(variant.id) : '') + '_' + safeId(chosen));
     });
     var br = el('div', 'buyrow'); br.appendChild(buy); br.appendChild(msg); right.appendChild(br);
     if (deliveryNote) right.appendChild(el('p', 'note delivery', deliveryNote));

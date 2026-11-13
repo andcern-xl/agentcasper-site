@@ -41,12 +41,51 @@
       "id": "formerly-casper-jersey",
       "name": "Formerly Casper Jersey",
       "price": 25.99,
-      "description": "Black V-neck football jersey, printed in bone. Best for raves and festivals.\n\nPrint:\n- Front: misty forest floor, a glowing mushroom, snails, frogs, moths and cats\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost behind the number",
-      "images": [
-        "/shop/images/fc-jersey-1.jpg",
-        "/shop/images/fc-jersey-2.jpg",
-        "/shop/images/fc-jersey-3.jpg"
+      "variants": [
+        {
+          "id": "black",
+          "label": "Black",
+          "images": [
+            "/shop/images/fc-jersey-1.jpg",
+            "/shop/images/fc-jersey-2.jpg",
+            "/shop/images/fc-jersey-3.jpg"
+          ],
+          "buy": {
+            "S": "https://buy.stripe.com/28E5kEf0u2qV9u05P83ks0z",
+            "M": "https://buy.stripe.com/bJe9AUcSmaXr9u0a5o3ks0A",
+            "L": "https://buy.stripe.com/8x2aEY6tYe9DgWs2CW3ks0B",
+            "XL": "https://buy.stripe.com/cNi3cw6tYe9D0XuelE3ks0C",
+            "2XL": "https://buy.stripe.com/28E9AU6tY4z3cGc91k3ks0D",
+            "3XL": "https://buy.stripe.com/4gMfZi5pU3uZbC8fpI3ks0E",
+            "4XL": "https://buy.stripe.com/4gMfZidWq6HbfSo6Tc3ks0F",
+            "5XL": "https://buy.stripe.com/5kQ6oI9GafdHeOkgtM3ks0G",
+            "6XL": "https://buy.stripe.com/aFabJ219Ed5zeOk5P83ks0H"
+          },
+          "description": "Black V-neck football jersey, printed in bone. Best for raves and festivals.\n\nPrint:\n- Front: misty forest floor, a glowing mushroom, snails, frogs, moths and cats\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost behind the number"
+        },
+        {
+          "id": "pink",
+          "label": "Pink",
+          "images": [
+            "/shop/images/fc-jersey-pink-1.jpg",
+            "/shop/images/fc-jersey-pink-2.jpg",
+            "/shop/images/fc-jersey-pink-3.jpg"
+          ],
+          "description": "Pink V-neck football jersey with pale blue collar and cuffs. Best for raves and festivals.\n\nPrint:\n- Front: a misty mushroom forest in grainy pastels, with flowers, butterflies and small frogs\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost in a flower crown behind the number",
+          "buy": {
+            "S": "https://buy.stripe.com/9B6eVe8C6e9D49G5P83ks0I",
+            "M": "https://buy.stripe.com/28EfZi8C65D77lS3H03ks0J",
+            "L": "https://buy.stripe.com/cNi8wQg4ye9DgWsgtM3ks0K",
+            "XL": "https://buy.stripe.com/cNifZi6tYc1vay4fpI3ks0L",
+            "2XL": "https://buy.stripe.com/9B6bJ28C63uZ0Xua5o3ks0M",
+            "3XL": "https://buy.stripe.com/7sY3cw3hMe9D7lSelE3ks0N",
+            "4XL": "https://buy.stripe.com/14A5kEbOighLgWs91k3ks0O",
+            "5XL": "https://buy.stripe.com/9B6fZi2dIfdHgWscdw3ks0P",
+            "6XL": "https://buy.stripe.com/4gM14o7y25D75dK2CW3ks0Q"
+          }
+        }
       ],
+      "description": "Formerly Casper V-neck football jersey, in black or pink. Best for raves and festivals.",
       "sizes": [
         "S",
         "M",
@@ -58,17 +97,6 @@
         "5XL",
         "6XL"
       ],
-      "buy": {
-        "S": "https://buy.stripe.com/28E5kEf0u2qV9u05P83ks0z",
-        "M": "https://buy.stripe.com/bJe9AUcSmaXr9u0a5o3ks0A",
-        "L": "https://buy.stripe.com/8x2aEY6tYe9DgWs2CW3ks0B",
-        "XL": "https://buy.stripe.com/cNi3cw6tYe9D0XuelE3ks0C",
-        "2XL": "https://buy.stripe.com/28E9AU6tY4z3cGc91k3ks0D",
-        "3XL": "https://buy.stripe.com/4gMfZi5pU3uZbC8fpI3ks0E",
-        "4XL": "https://buy.stripe.com/4gMfZidWq6HbfSo6Tc3ks0F",
-        "5XL": "https://buy.stripe.com/5kQ6oI9GafdHeOkgtM3ks0G",
-        "6XL": "https://buy.stripe.com/aFabJ219Ed5zeOk5P83ks0H"
-      },
       "short": "Formerly Casper Jersey",
       "chart": {
         "title": "Size chart",
