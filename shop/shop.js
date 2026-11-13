@@ -41,8 +41,9 @@
     return box;
   }
   function safeId(s) { return String(s).replace(/[^A-Za-z0-9_-]/g, ''); }
-  /* p.variants: colours of one product on the same page, [{id, label, images, buy, description?, soldOut?, zoom?}].
-     The first variant is the default; ?v=<id> picks another. */
+  /* p.variants: versions of one product on the same page (colours, cuts), [{id, label, images, buy, description?,
+     soldOut?, zoom?, sizes?, chart?, noChart?}]. The first variant is the default; ?v=<id> picks another.
+     p.variantLabel names the picker (default "Colour"). */
   function imagesOf(q) { return (q.variants && q.variants[0] && q.variants[0].images) || q.images || []; }
 
   Promise.all([get('/shop/products.json'), get('/shop/size-chart.json').catch(function () { return null; })]).then(function (d) {
@@ -77,7 +78,8 @@
       var vid = new URLSearchParams(location.search).get('v');
       variant = base.variants.filter(function (v) { return v.id === vid; })[0] || base.variants[0];
       p = Object.assign({}, base, { images: variant.images || base.images, buy: variant.buy, zoom: variant.zoom,
-        description: variant.description || base.description, soldOut: variant.soldOut != null ? variant.soldOut : base.soldOut });
+        description: variant.description || base.description, soldOut: variant.soldOut != null ? variant.soldOut : base.soldOut,
+        sizes: variant.sizes || base.sizes, chart: variant.chart || (variant.noChart ? null : base.chart), noChart: variant.noChart || base.noChart });
     }
     if (!p) { root.appendChild(el('p', 'empty', 'We could not find that product.')); var b = el('a', 'btn ghost', 'Back to the shop'); b.href = '/shop/'; root.appendChild(b); return; }
     document.title = (list.length > 1 ? 'Shop' : p.name) + ' | Agent Casper';
@@ -124,10 +126,11 @@
     }
     right.appendChild(el('h2', 'pname', p.name));
     right.appendChild(el('p', 'price big', money(p.price, cur)));
-    /* Colour: the product's variants, same page, swaps photos, links and print description */
+    /* Colour / Style: the product's variants, same page, swaps photos, links, sizes and description */
     if (variant && base.variants.length > 1) {
-      right.appendChild(el('div', 'size-head')).appendChild(el('strong', null, 'Colour'));
-      var vp = el('div', 'picks'); vp.setAttribute('role', 'radiogroup'); vp.setAttribute('aria-label', 'Colour');
+      var vlabel = base.variantLabel || 'Colour';
+      right.appendChild(el('div', 'size-head')).appendChild(el('strong', null, vlabel));
+      var vp = el('div', 'picks'); vp.setAttribute('role', 'radiogroup'); vp.setAttribute('aria-label', vlabel);
       base.variants.forEach(function (v) {
         var on = v === variant, b = el('button', 'pick' + (on ? ' on' : '')); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
         if (v.images && v.images[0]) { var vi = el('img'); vi.src = v.images[0]; vi.alt = ''; b.appendChild(vi); }

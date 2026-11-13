@@ -41,6 +41,7 @@
       "id": "formerly-casper-jersey",
       "name": "Formerly Casper Jersey",
       "price": 25.99,
+      "variantLabel": "Style",
       "variants": [
         {
           "id": "black",
@@ -83,9 +84,32 @@
             "5XL": "https://buy.stripe.com/9B6fZi2dIfdHgWscdw3ks0P",
             "6XL": "https://buy.stripe.com/4gM14o7y25D75dK2CW3ks0Q"
           }
+        },
+        {
+          "id": "pink-crop",
+          "label": "Pink Crop",
+          "images": [
+            "/shop/images/fc-crop-pink-1.jpg",
+            "/shop/images/fc-crop-pink-2.jpg",
+            "/shop/images/fc-crop-pink-3.jpg"
+          ],
+          "description": "Pink fitted crop top, crew neck, cropped at the ribcage. Pale blue collar and cuffs. Same print as the pink jersey.\n\nPrint:\n- Front: a misty mushroom forest in grainy pastels, with flowers, butterflies and small frogs\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost in a flower crown",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "noChart": true,
+          "buy": {
+            "S": "https://buy.stripe.com/14A28s7y28Pj35Cb9s3ks0R",
+            "M": "https://buy.stripe.com/6oUfZi7y2d5z49G7Xg3ks0S",
+            "L": "https://buy.stripe.com/14A6oIbOi1mRdKg5P83ks0T",
+            "XL": "https://buy.stripe.com/9B628s6tYghL35Ccdw3ks0U"
+          }
         }
       ],
-      "description": "Formerly Casper V-neck football jersey, in black or pink. Best for raves and festivals.",
+      "description": "Formerly Casper V-neck football jersey in black or pink, plus a pink crop top. Best for raves and festivals.",
       "sizes": [
         "S",
         "M",
