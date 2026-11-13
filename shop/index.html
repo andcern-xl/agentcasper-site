@@ -77,10 +77,21 @@
   #chart-body { padding: 28px; position: relative; }
   #chart-body h2 { margin: 0 0 8px; letter-spacing: -.03em; }
   .x { position: absolute; top: 14px; right: 16px; font-size: 26px; line-height: 1; border: 0; background: none; cursor: pointer; }
-  .tscroll { overflow-x: auto; }
+  /* A wide chart scrolls sideways; soft shadows at the edges show there is more (they follow the scroll) */
+  .tscroll { overflow-x: auto; -webkit-overflow-scrolling: touch;
+    background: linear-gradient(to right, #fff 30%, rgba(255,255,255,0)) left / 32px 100% no-repeat local,
+                linear-gradient(to left, #fff 30%, rgba(255,255,255,0)) right / 32px 100% no-repeat local,
+                radial-gradient(farthest-side at 0 50%, rgba(7,7,9,.16), transparent) left / 12px 100% no-repeat scroll,
+                radial-gradient(farthest-side at 100% 50%, rgba(7,7,9,.16), transparent) right / 12px 100% no-repeat scroll; }
   table { border-collapse: collapse; width: 100%; font: 500 15px var(--ui); }
   th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--hairline); white-space: nowrap; }
   th { color: var(--charcoal); font-weight: 600; }
+  @media (max-width: 600px) {   /* after the base table rules so it wins */
+    dialog#chart { width: 96vw; max-width: 96vw; }   /* the browser caps dialogs at 100% - 40px otherwise */
+    #chart-body { padding: 22px 14px; }
+    table { font-size: 13.5px; }
+    th, td { padding: 8px 5px; }
+  }
   footer { max-width: 1100px; margin: 0 auto; padding: 0 24px 40px; color: var(--charcoal); font: 400 14px var(--ui); }
   footer a { color: inherit; }
   .brand { display: flex; align-items: center; gap: 9px; }
