@@ -93,19 +93,64 @@
             "/shop/images/fc-crop-pink-2.jpg",
             "/shop/images/fc-crop-pink-3.jpg"
           ],
-          "description": "Pink fitted crop top, crew neck, cropped at the ribcage. Pale blue collar and cuffs. Same print as the pink jersey.\n\nPrint:\n- Front: a misty mushroom forest in grainy pastels, with flowers, butterflies and small frogs\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost in a flower crown",
+          "description": "Pink fitted crop top, crew neck, cropped at the ribcage. Pale blue collar and cuffs. Stretchy cotton (95% cotton, 5% spandex). Same print as the pink jersey.\n\nPrint:\n- Front: a misty mushroom forest in grainy pastels, with flowers, butterflies and small frogs\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost in a flower crown",
           "sizes": [
             "S",
             "M",
             "L",
             "XL"
           ],
-          "noChart": true,
           "buy": {
             "S": "https://buy.stripe.com/14A28s7y28Pj35Cb9s3ks0R",
             "M": "https://buy.stripe.com/6oUfZi7y2d5z49G7Xg3ks0S",
             "L": "https://buy.stripe.com/14A6oIbOi1mRdKg5P83ks0T",
             "XL": "https://buy.stripe.com/9B628s6tYghL35Ccdw3ks0U"
+          },
+          "chart": {
+            "title": "Size chart: Pink Crop",
+            "note": "Measurements in cm, weight in kg. Chest is all the way around, measured unstretched: the fabric (95% cotton, 5% spandex) stretches a lot, so it fits snug. Size up for a looser fit. Allow 1 to 3 cm either way.",
+            "columns": [
+              "Size",
+              "Weight",
+              "Length",
+              "Shoulder",
+              "Chest",
+              "Sleeve"
+            ],
+            "rows": [
+              [
+                "S",
+                "40-45",
+                "45",
+                "36",
+                "70",
+                "12.5"
+              ],
+              [
+                "M",
+                "45-50",
+                "46",
+                "37",
+                "72",
+                "13"
+              ],
+              [
+                "L",
+                "50-55",
+                "47",
+                "38",
+                "74",
+                "13.5"
+              ],
+              [
+                "XL",
+                "55-60",
+                "48",
+                "39",
+                "76",
+                "14"
+              ]
+            ]
           }
         }
       ],
