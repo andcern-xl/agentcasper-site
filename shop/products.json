@@ -57,10 +57,12 @@
             "XL": "https://buy.stripe.com/cNi3cw6tYe9D0XuelE3ks0C",
             "2XL": "https://buy.stripe.com/28E9AU6tY4z3cGc91k3ks0D",
             "3XL": "https://buy.stripe.com/4gMfZi5pU3uZbC8fpI3ks0E",
-            "4XL": "https://buy.stripe.com/4gMfZidWq6HbfSo6Tc3ks0F"
+            "4XL": "https://buy.stripe.com/4gMfZidWq6HbfSo6Tc3ks0F",
+            "XS": "https://buy.stripe.com/3cI5kEf0u8Pj49G4L43ks0V"
           },
-          "description": "Boxy black V-neck football jersey that fades to off-white through grainy mist. Black rib collar and cuffs with two off-white stripes. Best for raves and festivals.\n\nPrint:\n- Front: FORMERLY CASPER, small, across the chest\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost peeking over the number",
+          "description": "Boxy black V-neck football jersey that fades to off-white through grainy mist. Solid black collar, mist across the sleeves, black cuffs with one off-white stripe. Best for raves and festivals.\n\nPrint:\n- Front: FORMERLY CASPER, small, across the chest\n- Back: the Formerly Casper logo, number 26 (for 2026), AGENTCASPER.WORK / EST 2026, with the Agent Casper ghost peeking over the number",
           "sizes": [
+            "XS",
             "S",
             "M",
             "L",
@@ -71,22 +73,33 @@
           ],
           "chart": {
             "title": "Size chart: Black",
-            "note": "Measurements in cm, weight in kg. Unisex. Chest is all the way around. Loose, oversized fit: size down for a closer fit. Allow 1 to 2 cm either way.",
+            "note": "Measurements in cm, weight in kg. Unisex. Chest is all the way around. Loose, oversized fit: size down for a closer fit. Pick by height first, weight is a guide. Allow 1 to 2 cm either way.",
             "columns": [
               "Size",
               "Chest",
               "Length",
               "Shoulder",
               "Sleeve",
+              "Height",
               "Weight"
             ],
             "rows": [
+              [
+                "XS",
+                "104",
+                "67",
+                "53",
+                "20",
+                "155-160",
+                "42.5-50"
+              ],
               [
                 "S",
                 "108",
                 "69",
                 "55",
                 "21",
+                "160-166",
                 "50-60"
               ],
               [
@@ -95,6 +108,7 @@
                 "71",
                 "57",
                 "22",
+                "166-172",
                 "60-70"
               ],
               [
@@ -103,6 +117,7 @@
                 "73",
                 "59",
                 "23",
+                "172-177",
                 "70-80"
               ],
               [
@@ -111,6 +126,7 @@
                 "75",
                 "61",
                 "24",
+                "177-182",
                 "80-87.5"
               ],
               [
@@ -119,6 +135,7 @@
                 "77",
                 "63",
                 "25",
+                "182-187",
                 "87.5-95"
               ],
               [
@@ -127,6 +144,7 @@
                 "79",
                 "65",
                 "26",
+                "187-192",
                 "95-102.5"
               ],
               [
@@ -135,6 +153,7 @@
                 "81",
                 "67",
                 "27",
+                "192-197",
                 "102.5-110"
               ]
             ]
